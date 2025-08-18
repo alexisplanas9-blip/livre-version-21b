@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Les Triplés — Accueil</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -28,53 +27,41 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       line-height:1.6
     }
-
-    /* étoiles */
     #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
 
-    /* layout */
     .container{width:min(1150px,92vw);margin:0 auto}
-    header{
-      position:sticky;top:0;z-index:20;
-      backdrop-filter:blur(8px);
+
+    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);
       background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);
-      border-bottom:1px solid rgba(255,255,255,.06)
-    }
+      border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:34px;height:34px;border-radius:50%;
+    .logo{width:34px;height:34px;border-radius:50%;
       background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);
-      box-shadow:0 0 30px rgba(142,230,255,.4)
-    }
+      box-shadow:0 0 30px rgba(142,230,255,.4)}
     .brand h1{font:800 20px/1 Cinzel,serif;letter-spacing:.05em;margin:0}
+
+    nav{position:relative}
     nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
     nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
     nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
     nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
     .dropdown{position:relative}
     .dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
-    .submenu{
-      position:absolute;top:110%;left:0;min-width:230px;
-      background:rgba(14,16,28,.96);border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)
-    }
+    .submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);
+      border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}
     .submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
     .dropdown:hover .submenu{display:block}
 
-    /* hamburger */
-    .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
+    .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
     .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
     .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
     .hamb span:before{top:-6px}.hamb span:after{top:6px}
-
     @media (max-width:860px){
       .hamb{display:flex}
-      nav ul{
-        position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;
-        background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);
-        border-radius:14px;display:none
-      }
+      nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);
+        border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}
       nav ul.open{display:flex}
       .dropdown:hover .submenu{display:none}
       .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
@@ -84,24 +71,30 @@
 
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
     .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
-    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
-    section{padding:28px 0}
+
     .hero{padding:64px 0 28px}
     .hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
-
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
+    section{padding:28px 0}
     h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
+
     .gallery{display:grid;gap:22px}
 
     .clans{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-    .clan{position:relative;overflow:hidden;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08)}
+    .clan{position:relative;overflow:hidden;border-radius:var(--radius);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08)}
     .clan a{display:block;color:inherit;text-decoration:none}
-    .clan img{width:100%;height:360px;object-fit:cover;background:#0b0f1a;display:block;filter:saturate(1.05);position:relative;z-index:0}
-    .clan .meta{position:absolute;inset:auto 0 0 0;padding:12px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));font:700 16px Cinzel,serif;z-index:2}
+    .clan img{width:100%;height:360px;object-fit:contain;background:#0b0f1a;display:block;filter:saturate(1.05)}
+    .clan .meta{position:absolute;inset:auto 0 0 0;padding:12px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));
+      font:700 16px Cinzel,serif}
 
-    footer .container{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)}
+    footer .container{display:flex;justify-content:space-between;align-items:center;
+      padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)}
 
-    @media (max-width:1050px){.clans{grid-template-columns:1fr 1fr 1fr 1fr}}
-    @media (max-width:900px){.clans{grid-template-columns:1fr 1fr 1fr}.hero h2{font-size:34px}.clan img{height:320px}}
+    @media (max-width:1050px){.clans{grid-template-columns:1fr 1fr 1fr}}
+    @media (max-width:900px){.hero h2{font-size:34px}.clan img{height:320px}}
     @media (max-width:640px){.clans{grid-template-columns:1fr 1fr}.hero h2{font-size:30px}.clan img{height:300px}}
     @media (max-width:420px){.clans{grid-template-columns:1fr}.hero h2{font-size:26px}.clan img{height:260px}}
   </style>
@@ -115,9 +108,7 @@
         <div class="logo"></div>
         <h1 class="glow">Les Triplés</h1>
       </div>
-
       <div class="hamb" id="hamb"><span></span></div>
-
       <nav>
         <ul id="menu">
           <li><a href="index.html">Accueil</a></li>
@@ -137,19 +128,17 @@
   </header>
 
   <script>
-    // met en surbrillance le lien courant + hamburger
-    (function () {
-      const links = document.querySelectorAll('header nav a');
-      const here = location.pathname.split('/').pop() || 'index.html';
-      links.forEach(a => { if (a.getAttribute('href') === here) a.classList.add('active'); });
+    (function(){
+      const links=document.querySelectorAll('header nav a');
+      const here=location.pathname.split('/').pop()||'index.html';
+      links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
     })();
-    document.getElementById('hamb')?.addEventListener('click', () => {
-      const ul = document.getElementById('menu'); ul.classList.toggle('open');
-    });
+    document.getElementById('hamb')?.addEventListener('click',()=>document.getElementById('menu').classList.toggle('open'));
   </script>
 
   <main>
-    <!-- HERO + Couverture -->
+
+    <!-- HERO / Couverture -->
     <section class="hero">
       <div class="container">
         <span class="pill">✦ Saga fantastique</span>
@@ -157,10 +146,12 @@
 
         <div class="card" style="margin-top:14px">
           <h3 class="glow">Couverture — Tome 1</h3>
-          <!-- ⚠️ fichier attendu : images/couverture.png -->
-          <img src="images/couverture.png"
-               alt="Couverture — Les Triplés"
-               style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)" />
+          <!-- image fixe en CDN GitHub Pages -->
+          <img
+            src="/livre-version-21b/images/couverture.png?v=1"
+            alt="Couverture — Les Triplés"
+            style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)"
+          >
         </div>
       </div>
     </section>
@@ -169,82 +160,63 @@
     <section id="clans">
       <div class="container">
         <h3 class="glow" style="margin-bottom:12px">Les Clans</h3>
-
         <div class="clans">
-          <!-- Pour l’instant j’utilise des portraits existants pour que ça s’affiche -->
+
           <article class="clan">
             <a href="clan-ombre.html">
-              <img src="images/personnages/maitre-zebrina.jpg" alt="Clan de l’Ombre" />
+              <img src="/livre-version-21b/images/ombre.png?v=1" alt="Clan de l’Ombre">
               <div class="meta">Clan de l’Ombre</div>
             </a>
           </article>
 
           <article class="clan">
             <a href="clan-metamorphose.html">
-              <img src="images/personnages/elea.jpg" alt="Clan de la Métamorphose" />
+              <img src="/livre-version-21b/images/metamorphose.png?v=1" alt="Clan de la Métamorphose">
               <div class="meta">Clan de la Métamorphose</div>
             </a>
           </article>
 
           <article class="clan">
             <a href="clan-lien-animal.html">
-              <img src="images/personnages/paul-roubert.jpg" alt="Clan du Lien animal" />
+              <img src="/livre-version-21b/images/lien-animal.png?v=1" alt="Clan du Lien animal">
               <div class="meta">Clan du Lien animal</div>
             </a>
           </article>
 
           <article class="clan">
             <a href="clan-esprit.html">
-              <img src="images/personnages/melissa.jpg" alt="Clan de l’Esprit" />
+              <img src="/livre-version-21b/images/esprit.png?v=1" alt="Clan de l’Esprit">
               <div class="meta">Clan de l’Esprit</div>
             </a>
           </article>
 
           <article class="clan">
             <a href="clan-nature.html">
-              <img src="images/personnages/veyla.jpg" alt="Clan de la Nature" />
+              <img src="/livre-version-21b/images/nature.png?v=1" alt="Clan de la Nature">
               <div class="meta">Clan de la Nature</div>
             </a>
           </article>
+
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
     <div class="container">
       <div>© 2025 Les Triplés — Univers.</div>
-      <div style="font-size:12px">Site fan-tas-tique propulsé par GitHub Pages.</div>
+      <div style="font-size:12px">Tous droits réservés.</div>
     </div>
   </footer>
 
   <script>
-    // Animation d’étoiles (plus rapide que la version précédente)
-    const cvs = document.getElementById('stars');
-    const ctx = cvs.getContext('2d');
-    let W, H, S = [];
-    function resize(){
-      W = cvs.width  = innerWidth;
-      H = cvs.height = innerHeight;
-      const n = Math.min(320, Math.floor(W * H / 9000));
-      S = Array.from({length:n}, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.2 + .2,
-        s: Math.random() * .7 + .3
-      }));
-    }
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      for(const p of S){
-        ctx.fillStyle = rgba(200,230,255,${0.25 + p.s * 0.55});
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-        p.y += 0.45 + p.s * 1.0; if (p.y > H) p.y = -5;
-      }
-      requestAnimationFrame(draw);
-    }
-    addEventListener('resize', resize);
-    resize(); draw();
+    // étoiles qui défilent (comme avant)
+    const cvs=document.getElementById('stars'),ctx=cvs.getContext('2d');
+    let W,H,S=[];
+    function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
+    function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
+    addEventListener('resize',resize);resize();draw();
   </script>
 </body>
 </html>
