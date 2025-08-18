@@ -13,8 +13,8 @@
     :root{
       --bg:#0a0b12;--bg2:#121426;--fg:#e7e3ff;--muted:#9aa0c3;
       --primary:#8ee6ff;--accent:#b987ff;--gold:#ffd48a;
-      --panel:rgba(255,255,255,.04);--glass:rgba(255,255,255,.06);
-      --shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px
+      --panel:rgba(255,255,255,.04);--shadow:0 8px 30px rgba(0,0,0,.45);
+      --radius:18px
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -45,12 +45,10 @@
     }
     .brand h1{font:800 20px/1 Cinzel,serif;letter-spacing:.05em;margin:0}
 
-    nav{position:relative}
     nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
     nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
     nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
     nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
-
     .dropdown{position:relative}
     .dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
     .submenu{
@@ -58,59 +56,24 @@
       background:rgba(14,16,28,.96);border:1px solid rgba(255,255,255,.08);
       border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)
     }
-    .submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
     .dropdown:hover .submenu{display:block}
-
-    .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
-    .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
-    .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
-    .hamb span:before{top:-6px}.hamb span:after{top:6px}
-
-    @media (max-width:860px){
-      .hamb{display:flex}
-      nav ul{
-        position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;
-        background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);
-        border-radius:14px;display:none
-      }
-      nav ul.open{display:flex}
-      .dropdown:hover .submenu{display:none}
-      .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
-      .submenu a{padding:8px 12px}
-      .dropdown>a:after{content:''}
-    }
 
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
     .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
     .hero{padding:64px 0 28px}
     .hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
-    .pill{
-      display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);
-      background:rgba(255,212,138,.05)
-    }
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
 
     section{padding:28px 0}
     h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
-    .gallery{display:grid;gap:22px}
 
     .clans{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
     .clan{position:relative;overflow:hidden;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08)}
     .clan a{display:block;color:inherit;text-decoration:none}
-    .clan img{width:100%;height:360px;object-fit:contain;background:#0b0f1a;display:block;filter:saturate(1.05);position:relative;z-index:0}
-    .clan .meta{position:absolute;inset:auto 0 0 0;padding:12px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));font:700 16px Cinzel,serif;z-index:2}
+    .clan img{width:100%;height:360px;object-fit:contain;background:#0b0f1a;display:block;filter:saturate(1.05)}
+    .clan .meta{position:absolute;inset:auto 0 0 0;padding:12px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));font:700 16px Cinzel,serif}
 
-    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-    small{color:var(--muted)}
-    input[type=file]{display:none}
-    label.file{cursor:pointer}
-    label.file span{border-bottom:1px dashed rgba(255,255,255,.3)}
-
-    footer .container{
-      display:flex;justify-content:space-between;align-items:center;padding:26px 0;
-      border-top:1px solid rgba(255,255,255,.06);color:var(--muted)
-    }
-
+    footer .container{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)}
     @media (max-width:1050px){.clans{grid-template-columns:1fr 1fr 1fr 1fr}}
     @media (max-width:900px){.clans{grid-template-columns:1fr 1fr 1fr}.hero h2{font-size:34px}.clan img{height:320px}}
     @media (max-width:640px){.clans{grid-template-columns:1fr 1fr}.hero h2{font-size:30px}.clan img{height:300px}}
@@ -126,12 +89,9 @@
         <div class="logo"></div>
         <h1 class="glow">Les Triplés</h1>
       </div>
-
-      <div class="hamb" id="hamb"><span></span></div>
-
       <nav>
         <ul id="menu">
-          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.html" class="active">Accueil</a></li>
           <li class="dropdown">
             <a href="clan-ombre.html">Les Clans</a>
             <div class="submenu">
@@ -147,62 +107,61 @@
     </div>
   </header>
 
-  <script>
-    (function(){
-      const links=document.querySelectorAll('header nav a');
-      const here=location.pathname.split('/').pop()||'index.html';
-      links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});
-    })();
-    document.getElementById('hamb')?.addEventListener('click',()=>{
-      const ul=document.getElementById('menu');ul.classList.toggle('open')
-    });
-  </script>
-
   <main>
+    <!-- Couverture (image fixe du repo) -->
     <section class="hero">
       <div class="container">
         <span class="pill">✦ Saga fantastique</span>
         <h2 class="glow">Ils sont trois. Nés le même jour. Marqués par la magie.</h2>
-
         <div class="card" style="margin-top:14px">
-          <div class="controls">
-            <label class="file"><input type="file" id="pick-cover" accept="image/*"><span>Choisir Couverture</span></label>
-            <label class="file"><input type="file" id="pick-ombre" accept="image/*"><span>Ombre</span></label>
-            <label class="file"><input type="file" id="pick-metamorphose" accept="image/*"><span>Métamorphose</span></label>
-            <label class="file"><input type="file" id="pick-animal" accept="image/*"><span>Lien animal</span></label>
-            <label class="file"><input type="file" id="pick-esprit" accept="image/*"><span>Esprit</span></label>
-            <label class="file"><input type="file" id="pick-nature" accept="image/*"><span>Nature</span></label>
-            <span><small>Astuce : tes images sont mémorisées automatiquement sur cette machine.</small></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="couverture">
-      <div class="container gallery">
-        <div class="card">
-          <h3 class="glow">Photo — Tome 1</h3>
-
-          <!-- 🔥 ICI : image par défaut servie depuis le repo -->
           <img
-            id="img-cover"
             src="images/couverture.png"
-            alt="Photo Tome 1 — Les Triplés"
-            style="width:100%;height:360px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)"
+            alt="Couverture — Les Triplés"
+            style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)"
           >
         </div>
       </div>
     </section>
 
+    <!-- Vignettes des clans (images fixes du repo) -->
     <section id="clans">
       <div class="container">
         <h3 class="glow" style="margin-bottom:12px">Les Clans</h3>
         <div class="clans">
-          <article class="clan"><a href="clan-ombre.html"><img id="img-ombre" alt="Clan de l’Ombre"><div class="meta">Clan de l’Ombre</div></a></article>
-          <article class="clan"><a href="clan-metamorphose.html"><img id="img-metamorphose" alt="Clan de la Métamorphose"><div class="meta">Clan de la Métamorphose</div></a></article>
-          <article class="clan"><a href="clan-lien-animal.html"><img id="img-animal" alt="Clan du Lien animal"><div class="meta">Clan du Lien animal</div></a></article>
-          <article class="clan"><a href="clan-esprit.html"><img id="img-esprit" alt="Clan de l’Esprit"><div class="meta">Clan de l’Esprit</div></a></article>
-          <article class="clan"><a href="clan-nature.html"><img id="img-nature" alt="Clan de la Nature"><div class="meta">Clan de la Nature</div></a></article>
+          <article class="clan">
+            <a href="clan-ombre.html">
+              <img src="images/clans/ombre.jpg" alt="Clan de l’Ombre">
+              <div class="meta">Clan de l’Ombre</div>
+            </a>
+          </article>
+
+          <article class="clan">
+            <a href="clan-metamorphose.html">
+              <img src="images/clans/metamorphose.jpg" alt="Clan de la Métamorphose">
+              <div class="meta">Clan de la Métamorphose</div>
+            </a>
+          </article>
+
+          <article class="clan">
+            <a href="clan-lien-animal.html">
+              <img src="images/clans/lien-animal.jpg" alt="Clan du Lien animal">
+              <div class="meta">Clan du Lien animal</div>
+            </a>
+          </article>
+
+          <article class="clan">
+            <a href="clan-esprit.html">
+              <img src="images/clans/esprit.jpg" alt="Clan de l’Esprit">
+              <div class="meta">Clan de l’Esprit</div>
+            </a>
+          </article>
+
+          <article class="clan">
+            <a href="clan-nature.html">
+              <img src="images/clans/nature.jpg" alt="Clan de la Nature">
+              <div class="meta">Clan de la Nature</div>
+            </a>
+          </article>
         </div>
       </div>
     </section>
@@ -211,7 +170,7 @@
   <footer>
     <div class="container">
       <div>© 2025 Les Triplés — Univers.</div>
-      <div style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</div>
+      <div style="font-size:12px">Tous droits réservés.</div>
     </div>
   </footer>
 
@@ -221,29 +180,6 @@
     function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
     function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
     addEventListener('resize',resize);resize();draw();
-
-    // upload localStorage (optionnel)
-    function fileToDataURL(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(file);});}
-    const keys=["cover","ombre","metamorphose","animal","esprit","nature"];
-    const imgs=Object.fromEntries(keys.map(k=>[k,document.getElementById('img-'+k)]));
-    const picks=Object.fromEntries(keys.map(k=>[k,document.getElementById('pick-'+k)]));
-
-    // si une image a été enregistrée localement, on la remet
-    keys.forEach(k=>{
-      const data=localStorage.getItem('triple_'+k);
-      if(data && imgs[k]) imgs[k].src=data;
-    });
-
-    // gestion des uploads
-    for(const k of keys){
-      picks[k]?.addEventListener('change',async e=>{
-        const f=e.target.files[0];if(!f)return;
-        const data=await fileToDataURL(f);
-        if(imgs[k]) imgs[k].src=data;
-        try{localStorage.setItem('triple_'+k,data);}catch(err){console.warn('localStorage plein',err);}
-        e.target.value="";
-      });
-    }
   </script>
 </body>
 </html>
