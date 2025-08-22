@@ -1,11 +1,206 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Famille Peterson — Les Triplés</title>
-</head>
-<body>
-  <h1>La Famille Peterson</h1>
-  <p>Ici tu pourras écrire l’histoire, la description et les détails sur la famille Peterson.</p>
-</body>
-</html>
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Triplés — Famille Peterson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b12;--bg2:#121426;--fg:#e7e3ff;--muted:#9aa0c3;--primary:#8ee6ff;--accent:#b987ff;--gold:#ffd48a;--panel:rgba(255,255,255,.04);--shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#1a1d40 0%,var(--bg) 60%),radial-gradient(800px 600px at 0% 100%,#0f132c 0%,var(--bg2) 60%);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+#stars{position:fixed;inset:0;z-index:1;pointer-events:none}.container{width:min(1150px,92vw);margin:0 auto}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);box-shadow:0 0 30px rgba(142,230,255,.4)}
+.brand h1{font:800 20px/1 Cinzel,serif;margin:0}
+nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
+nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
+nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
+.dropdown{position:relative}.dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
+.submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}
+.submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}.dropdown:hover .submenu{display:block}
+.hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
+.hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}.hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}.hamb span:before{top:-6px}.hamb span:after{top:6px}
+@media (max-width:860px){.hamb{display:flex}nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}nav ul.open{display:flex}.dropdown:hover .submenu{display:none}.submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}.submenu a{padding:8px 12px}.dropdown>a:after{content:''}}
+.glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
+.card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
+.hero{padding:64px 0 28px}.hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px;text-transform:uppercase}
+section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
+
+/* Cartes famille */
+.fam-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start;justify-items:center}
+.fam-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;width:100%;max-width:210px}
+.fam-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.fam-thumb{display:block;object-fit:cover;width:100%;height:240px;background:#0b0f1a}
+.fam-name{padding:10px 12px;font:700 16px Cinzel,serif}
+
+/* placement pyramide: parents sur colonnes 2 et 4, enfants sur 1,3,5 */
+.fam-card[data-role="parent"]:nth-of-type(1){grid-column:2}
+.fam-card[data-role="parent"]:nth-of-type(2){grid-column:4}
+.fam-row-break{grid-column:1/-1;height:8px} /* simple séparateur de lignes */
+.fam-card[data-role="enfant"]:nth-of-type(1){grid-column:1}
+.fam-card[data-role="enfant"]:nth-of-type(2){grid-column:3}
+.fam-card[data-role="enfant"]:nth-of-type(3){grid-column:5}
+
+@media(max-width:960px){
+  .fam-grid{grid-template-columns:repeat(3,1fr)}
+  .fam-card[data-role="parent"]:nth-of-type(1){grid-column:1}
+  .fam-card[data-role="parent"]:nth-of-type(2){grid-column:3}
+  .fam-card[data-role="enfant"]:nth-of-type(1){grid-column:1}
+  .fam-card[data-role="enfant"]:nth-of-type(2){grid-column:2}
+  .fam-card[data-role="enfant"]:nth-of-type(3){grid-column:3}
+}
+@media(max-width:620px){
+  .fam-grid{grid-template-columns:1fr}
+  .fam-card{max-width:100%}
+  .fam-card[data-role]{grid-column:auto}
+}
+
+/* Modale */
+.v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
+.v21-modal{width:min(920px,92vw);max-height:82vh;overflow:auto;background:rgba(18,20,40,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 55px rgba(0,0,0,.5);transform:scale(.96);opacity:0;transition:.18s ease}
+.v21-modal.open{transform:scale(1);opacity:1}
+.v21-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.v21-title{font:800 20px Cinzel,serif}
+.v21-close{width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e7e3ff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.v21-body{display:grid;grid-template-columns:280px 1fr;gap:16px;padding:16px}
+@media(max-width:720px){.v21-body{grid-template-columns:1fr}}
+.v21-img{width:100%;height:360px;background:#0b0f1a;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+.v21-text{color:var(--muted);white-space:pre-wrap;line-height:1.7}
+</style></head>
+<body><canvas id="stars"></canvas>
+
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="logo"></div><h1 class="glow">Les Triplés</h1></div>
+    <div class="hamb" id="hamb"><span></span></div>
+    <nav>
+      <ul id="menu">
+        <li><a href="index.html">Accueil</a></li>
+        <li class="dropdown">
+          <a href="clan-ombre.html">Les Clans</a>
+          <div class="submenu">
+            <a href="clan-ombre.html">Clan de l’Ombre</a>
+            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+            <a href="clan-lien-animal.html">Clan du Lien animal</a>
+            <a href="clan-esprit.html">Clan de l’Esprit</a>
+            <a href="clan-nature.html">Clan de la Nature</a>
+          </div>
+        </li>
+        <li><a href="peterson.html" class="active">Peterson</a></li>
+        <li><a href="creatures.html">Les créatures</a></li>
+        <li><a href="arbre.html">L’Arbre</a></li>
+        <li><a href="auteur.html">Auteur</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<script>(function(){const links=document.querySelectorAll('header nav a');const here=location.pathname.split('/').pop()||'index.html';links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});document.getElementById('hamb')?.addEventListener('click',()=>document.getElementById('menu').classList.toggle('open'));})();</script>
+
+<main>
+  <section class="hero"><div class="container">
+    <span class="pill"></span>
+    <h2 class="glow">Famille Peterson</h2>
+  </div></section>
+
+  <section><div class="container">
+    <div class="card">
+      <h3 class="glow">Description</h3>
+      <p style="white-space:pre-wrap;margin-top:8px;color:var(--muted)">
+Écris ici la présentation de la famille Peterson (origines, rôle dans l’Arbre, liens, etc.).
+      </p>
+    </div>
+  </div></section>
+
+  <section><div class="container">
+    <h3 class="glow" style="margin-bottom:12px">Membres de la famille</h3>
+
+    <div class="fam-grid">
+
+      <!-- Parents (haut, 2 cartes) -->
+      <article class="fam-card" data-role="parent" data-name="Parent 1" data-img="parent1.jpg">
+        <img class="fam-thumb" src="images/peterson/parent1.jpg" alt="Parent 1">
+        <div class="fam-name">Parent 1</div>
+        <template>Mettre la description du Parent 1.</template>
+      </article>
+
+      <article class="fam-card" data-role="parent" data-name="Parent 2" data-img="parent2.jpg">
+        <img class="fam-thumb" src="images/peterson/parent2.jpg" alt="Parent 2">
+        <div class="fam-name">Parent 2</div>
+        <template>Mettre la description du Parent 2.</template>
+      </article>
+
+      <div class="fam-row-break"></div>
+
+      <!-- Enfants (bas, 3 cartes) -->
+      <article class="fam-card" data-role="enfant" data-name="Enfant 1" data-img="enfant1.jpg">
+        <img class="fam-thumb" src="images/peterson/enfant1.jpg" alt="Enfant 1">
+        <div class="fam-name">Enfant 1</div>
+        <template>Mettre la description de l'Enfant 1.</template>
+      </article>
+
+      <article class="fam-card" data-role="enfant" data-name="Enfant 2" data-img="enfant2.jpg">
+        <img class="fam-thumb" src="images/peterson/enfant2.jpg" alt="Enfant 2">
+        <div class="fam-name">Enfant 2</div>
+        <template>Mettre la description de l'Enfant 2.</template>
+      </article>
+
+      <article class="fam-card" data-role="enfant" data-name="Enfant 3" data-img="enfant3.jpg">
+        <img class="fam-thumb" src="images/peterson/enfant3.jpg" alt="Enfant 3">
+        <div class="fam-name">Enfant 3</div>
+        <template>Mettre la description de l'Enfant 3.</template>
+      </article>
+
+    </div>
+  </div></section>
+
+  <!-- Modale -->
+  <div class="v21-mask" id="v21-mask">
+    <div class="v21-modal" id="v21-modal">
+      <div class="v21-head">
+        <div class="v21-title" id="v21-title">Titre</div>
+        <button class="v21-close" id="v21-close" aria-label="Fermer">✕</button>
+      </div>
+      <div class="v21-body">
+        <img class="v21-img" id="v21-img" alt="">
+        <div class="v21-text" id="v21-text"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer><div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)">© 2025 Les Triplés — Univers.<span style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</span></div></footer>
+
+<script>
+/* Fond étoilé */
+const cvs=document.getElementById('stars');const ctx=cvs.getContext('2d');let W,H,S=[];
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
+function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
+addEventListener('resize',resize);resize();draw();
+
+/* Modale */
+(function(){
+  const mask=document.getElementById('v21-mask');
+  const modal=document.getElementById('v21-modal');
+  const title=document.getElementById('v21-title');
+  const img=document.getElementById('v21-img');
+  const text=document.getElementById('v21-text');
+
+  function openCard(card){
+    title.textContent = card.dataset.name || '';
+    img.src = 'images/peterson/' + (card.dataset.img || '');
+    const tpl = card.querySelector('template');
+    text.textContent = tpl ? (tpl.content ? tpl.content.textContent : tpl.innerHTML) : '';
+    mask.style.display='flex'; requestAnimationFrame(()=> modal.classList.add('open'));
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    setTimeout(()=>{ mask.style.display='none'; }, 170);
+  }
+  document.querySelectorAll('.fam-card').forEach(c=> c.addEventListener('click', ()=>openCard(c)));
+  document.getElementById('v21-close').addEventListener('click', closeModal);
+  mask.addEventListener('click', (e)=>{ if(e.target===mask) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+})();
+</script>
+
+</body></html>
