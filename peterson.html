@@ -7,16 +7,14 @@
 *{box-sizing:border-box}html,body{height:100%}body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#1a1d40 0%,var(--bg) 60%),radial-gradient(800px 600px at 0% 100%,#0f132c 0%,var(--bg2) 60%);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
 #stars{position:fixed;inset:0;z-index:1;pointer-events:none}.container{width:min(1150px,92vw);margin:0 auto}
 header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);border-bottom:1px solid rgba(255,255,255,.06)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
-.brand{display:flex;align-items:center;gap:12px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}.brand{display:flex;align-items:center;gap:12px}
 .logo{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);box-shadow:0 0 30px rgba(142,230,255,.4)}
 .brand h1{font:800 20px/1 Cinzel,serif;margin:0}
-nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
-nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
+nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
 nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .dropdown{position:relative}.dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
-.submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}
-.submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}.dropdown:hover .submenu{display:block}
+.submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}.submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
+.dropdown:hover .submenu{display:block}
 .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
 .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}.hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}.hamb span:before{top:-6px}.hamb span:after{top:6px}
 @media (max-width:860px){.hamb{display:flex}nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}nav ul.open{display:flex}.dropdown:hover .submenu{display:none}.submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}.submenu a{padding:8px 12px}.dropdown>a:after{content:''}}
@@ -25,36 +23,33 @@ nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}nav .active{color:v
 .hero{padding:64px 0 28px}.hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px;text-transform:uppercase}
 section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 
-/* Cartes famille (pyramide) */
-.fam-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start;justify-items:center}
-.fam-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;width:100%;max-width:210px}
+/* === Famille: même gabarit que les cartes de clan === */
+.fam-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start}
+.fam-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;width:100%}
 .fam-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.fam-thumb{display:block;object-fit:cover;width:100%;height:240px;background:#0b0f1a}
+.fam-thumb{display:block;width:100%;height:360px;object-fit:cover;object-position:top;background:#0b0f1a} /* hauteur augmentée */
 .fam-name{padding:10px 12px;font:700 16px Cinzel,serif}
 
-/* placement pyramide: parents sur colonnes 2 et 4, enfants sur 1,3,5 */
-.fam-card[data-role="parent"]:nth-of-type(1){grid-column:2}
-.fam-card[data-role="parent"]:nth-of-type(2){grid-column:4}
-.fam-row-break{grid-column:1/-1;height:8px}
-.fam-card[data-role="enfant"]:nth-of-type(1){grid-column:1}
-.fam-card[data-role="enfant"]:nth-of-type(2){grid-column:3}
-.fam-card[data-role="enfant"]:nth-of-type(3){grid-column:5}
+/* placement par classes de colonne (plus fiable que nth-of-type) */
+.col-1{grid-column:1}.col-2{grid-column:2}.col-3{grid-column:3}.col-4{grid-column:4}.col-5{grid-column:5}
 
+/* Responsive: 3 colonnes puis 1 colonne */
 @media(max-width:960px){
   .fam-grid{grid-template-columns:repeat(3,1fr)}
-  .fam-card[data-role="parent"]:nth-of-type(1){grid-column:1}
-  .fam-card[data-role="parent"]:nth-of-type(2){grid-column:3}
-  .fam-card[data-role="enfant"]:nth-of-type(1){grid-column:1}
-  .fam-card[data-role="enfant"]:nth-of-type(2){grid-column:2}
-  .fam-card[data-role="enfant"]:nth-of-type(3){grid-column:3}
+  /* parents sur 1 et 3 */
+  .parents .col-2{grid-column:1}
+  .parents .col-4{grid-column:3}
+  /* enfants sur 1,2,3 */
+  .enfants .col-1{grid-column:1}
+  .enfants .col-3{grid-column:2}
+  .enfants .col-5{grid-column:3}
 }
 @media(max-width:620px){
   .fam-grid{grid-template-columns:1fr}
-  .fam-card{max-width:100%}
-  .fam-card[data-role]{grid-column:auto}
+  .col-1,.col-2,.col-3,.col-4,.col-5{grid-column:auto}
 }
 
-/* Modale */
+/* Modale (identique au style v21) */
 .v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
 .v21-modal{width:min(920px,92vw);max-height:82vh;overflow:auto;background:rgba(18,20,40,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 55px rgba(0,0,0,.5);transform:scale(.96);opacity:0;transition:.18s ease}
 .v21-modal.open{transform:scale(1);opacity:1}
@@ -112,43 +107,42 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
   <section><div class="container">
     <h3 class="glow" style="margin-bottom:12px">Membres de la famille</h3>
 
-    <div class="fam-grid">
-
-      <!-- Parents (haut, 2 cartes) -->
-      <article class="fam-card" data-role="parent" data-name="Parent 1" data-img="Parent1.png">
+    <!-- Rangée PARENTS : colonnes 2 et 4 -->
+    <div class="fam-grid parents" style="margin-bottom:10px">
+      <article class="fam-card col-2" data-name="Parent 1" data-img="Parent1.png">
         <img class="fam-thumb" src="images/personnages/Parent1.png" alt="Parent 1">
         <div class="fam-name">Parent 1</div>
         <template>Mettre la description du Parent 1.</template>
       </article>
 
-      <article class="fam-card" data-role="parent" data-name="Parent 2" data-img="Parent2.png">
+      <article class="fam-card col-4" data-name="Parent 2" data-img="Parent2.png">
         <img class="fam-thumb" src="images/personnages/Parent2.png" alt="Parent 2">
         <div class="fam-name">Parent 2</div>
         <template>Mettre la description du Parent 2.</template>
       </article>
+    </div>
 
-      <div class="fam-row-break"></div>
-
-      <!-- Enfants (bas, 3 cartes) -->
-      <article class="fam-card" data-role="enfant" data-name="Léo" data-img="Leo.png">
+    <!-- Rangée ENFANTS : colonnes 1, 3 et 5 -->
+    <div class="fam-grid enfants">
+      <article class="fam-card col-1" data-name="Léo" data-img="Leo.png">
         <img class="fam-thumb" src="images/personnages/Leo.png" alt="Léo">
         <div class="fam-name">Léo</div>
         <template>Mettre la description de Léo.</template>
       </article>
 
-      <article class="fam-card" data-role="enfant" data-name="Carlos" data-img="Carlos.png">
+      <article class="fam-card col-3" data-name="Carlos" data-img="Carlos.png">
         <img class="fam-thumb" src="images/personnages/Carlos.png" alt="Carlos">
         <div class="fam-name">Carlos</div>
         <template>Mettre la description de Carlos.</template>
       </article>
 
-      <article class="fam-card" data-role="enfant" data-name="Éléa" data-img="Elea.png">
+      <article class="fam-card col-5" data-name="Éléa" data-img="Elea.png">
         <img class="fam-thumb" src="images/personnages/Elea.png" alt="Éléa">
         <div class="fam-name">Éléa</div>
         <template>Mettre la description d'Éléa.</template>
       </article>
-
     </div>
+
   </div></section>
 
   <!-- Modale -->
@@ -164,13 +158,12 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
       </div>
     </div>
   </div>
-
 </main>
 
 <footer><div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)">© 2025 Les Triplés — Univers.<span style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</span></div></footer>
 
 <script>
-/* Fond étoilé */
+/* Étoiles */
 const cvs=document.getElementById('stars');const ctx=cvs.getContext('2d');let W,H,S=[];
 function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
 function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
@@ -201,5 +194,4 @@ addEventListener('resize',resize);resize();draw();
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
 })();
 </script>
-
 </body></html>
