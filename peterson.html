@@ -18,27 +18,27 @@ nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}nav .active{color:v
 .dropdown:hover .submenu{display:block}
 .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
 .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}.hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}.hamb span:before{top:-6px}.hamb span:after{top:6px}
-@media (max-width:860px){.hamb{display:flex}nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}nav ul.open{display:flex}.dropdown:hover .submenu{display:none}.submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}.submenu a{padding:8px 12px}.dropdown>a:after{content:''}}
+@media (max-width:860px){.hamb{display:flex}nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}nav ul.open{display:flex}.dropdown:hover .submenu{display:none}.submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}.dropdown>a:after{content:''}}
 .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
 .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
-.hero{padding:64px 0 28px}.hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px;text-transform:uppercase}
+.hero{padding:64px 0 28px}.hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
 section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 
-/* === Réemploi EXACT des cartes de clan === */
-.v21-person-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} /* utilisé pour les enfants */
-@media(max-width:1100px){.v21-person-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.v21-person-grid{grid-template-columns:1fr}}
+/* === Réutilisation des cartes "clan" === */
 .v21-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
 .v21-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.v21-thumb{display:block;width:100%;object-fit:contain;object-position:top;background:#0b0f1a}
-/* Forcer la même hauteur visuelle que ton visuel de clan (360px) pour TOUTES les vignettes famille */
-.fam .v21-thumb{height:360px}
+.v21-thumb{display:block;width:100%;object-position:top;background:#0b0f1a}
+/* Pour que TOUTES les vignettes de cette page aient EXACTEMENT la même hauteur que les visuels de clan */
+.page-peterson .v21-thumb{height:360px;object-fit:contain}
+.v21-name{padding:10px 12px;font:700 16px Cinzel,serif}
 
-/* Rangée parents: 2 colonnes SANS trou, même taille de cartes que les enfants */
-.fam-parents{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:12px}
-@media(max-width:700px){.fam-parents{grid-template-columns:1fr}}
+/* Pyramide : 2 parents (collés), puis 3 enfants */
+.peterson-parents{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:12px}
+.peterson-enfants{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:960px){.peterson-enfants{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.peterson-parents,.peterson-enfants{grid-template-columns:1fr}}
 
-/* Modale (copie v21) */
+/* Modale (identique v21) */
 .v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
 .v21-modal{width:min(920px,92vw);max-height:82vh;overflow:auto;background:rgba(18,20,40,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 55px rgba(0,0,0,.5);transform:scale(.96);opacity:0;transition:.18s ease}
 .v21-modal.open{transform:scale(1);opacity:1}
@@ -69,7 +69,7 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
             <a href="clan-nature.html">Clan de la Nature</a>
           </div>
         </li>
-        <li><a href="peterson.html" class="active">Peterson</a></li>
+        <li><a class="active" href="peterson.html">Peterson</a></li>
         <li><a href="creatures.html">Les créatures</a></li>
         <li><a href="arbre.html">L’Arbre</a></li>
         <li><a href="auteur.html">Auteur</a></li>
@@ -79,7 +79,7 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 </header>
 <script>(function(){const links=document.querySelectorAll('header nav a');const here=location.pathname.split('/').pop()||'index.html';links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});document.getElementById('hamb')?.addEventListener('click',()=>document.getElementById('menu').classList.toggle('open'));})();</script>
 
-<main>
+<main class="page-peterson">
   <section class="hero"><div class="container">
     <h2 class="glow">Famille Peterson</h2>
   </div></section>
@@ -88,16 +88,16 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
     <div class="card">
       <h3 class="glow">Description</h3>
       <p style="white-space:pre-wrap;margin-top:8px;color:var(--muted)">
-Écris ici la présentation de la famille Peterson (origines, rôle dans l’Arbre, liens, etc.).
+Mettre ici la présentation de la famille Peterson (origines, rôle dans l’Arbre, liens, etc.).
       </p>
     </div>
   </div></section>
 
-  <section class="fam"><div class="container">
+  <section><div class="container">
     <h3 class="glow" style="margin-bottom:12px">Membres de la famille</h3>
 
-    <!-- Parents (2 colonnes, SANS trou) -->
-    <div class="fam-parents">
+    <!-- Parents (2 colonnes côte à côte, même dimensions que les enfants) -->
+    <div class="peterson-parents">
       <article class="v21-card" data-name="Parent 1" data-img="Parent1.png">
         <img class="v21-thumb" src="images/personnages/Parent1.png" alt="Parent 1">
         <div class="v21-name">Parent 1</div>
@@ -111,10 +111,10 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
       </article>
     </div>
 
-    <!-- Enfants (3 colonnes, mêmes cartes/dimensions) -->
-    <div class="v21-person-grid">
-      <article class="v21-card" data-name="Léo" data-img="Léo.png">
-        <img class="v21-thumb" src="images/personnages/Léo.png" alt="Léo">
+    <!-- Enfants (3 colonnes) -->
+    <div class="peterson-enfants">
+      <article class="v21-card" data-name="Léo" data-img="Leo.png">
+        <img class="v21-thumb" src="images/personnages/Leo.png" alt="Léo">
         <div class="v21-name">Léo</div>
         <template>Mettre la description de Léo.</template>
       </article>
@@ -147,7 +147,6 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
       </div>
     </div>
   </div>
-
 </main>
 
 <footer><div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)">© 2025 Les Triplés — Univers.<span style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</span></div></footer>
@@ -159,13 +158,14 @@ function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({
 function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
 addEventListener('resize',resize);resize();draw();
 
-/* Modale personnages (identique aux clans) */
+/* Modale (identique aux pages de clan) */
 (function(){
   const mask=document.getElementById('v21-mask');
   const modal=document.getElementById('v21-modal');
   const title=document.getElementById('v21-title');
   const img=document.getElementById('v21-img');
   const text=document.getElementById('v21-text');
+
   function openCard(card){
     title.textContent = card.dataset.name || '';
     img.src = 'images/personnages/' + (card.dataset.img || '');
@@ -177,6 +177,7 @@ addEventListener('resize',resize);resize();draw();
     modal.classList.remove('open');
     setTimeout(()=>{ mask.style.display='none'; }, 170);
   }
+
   document.querySelectorAll('.v21-card').forEach(c=> c.addEventListener('click', ()=>openCard(c)));
   document.getElementById('v21-close').addEventListener('click', closeModal);
   mask.addEventListener('click', (e)=>{ if(e.target===mask) closeModal(); });
@@ -185,6 +186,3 @@ addEventListener('resize',resize);resize();draw();
 </script>
 
 </body></html>
-
-
-
