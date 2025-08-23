@@ -43,16 +43,14 @@ nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .hero{padding:64px 0 28px}
 .hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
-section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
+section{padding:28px 0}
+h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 .gallery{display:grid;gap:22px}
 
-/* === v21: Personnages (namespaced) — mêmes dimensions homogènes === */
+/* === Styles personnages (identiques aux clans) === */
 .v21-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
 .v21-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.v21-thumb{display:block;width:100%;height:320px;object-fit:cover;object-position:top}   /* <- hauteur fixe */
-@media(max-width:900px){.v21-thumb{height:300px}}
-@media(max-width:640px){.v21-thumb{height:280px}}
-@media(max-width:420px){.v21-thumb{height:240px}}
+.v21-thumb{display:block;width:100%;object-fit:cover;object-position:top} /* pas de height forcée -> même comportement que les clans */
 .v21-name{padding:10px 12px;font:700 16px Cinzel, serif}
 .v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
 .v21-modal{width:min(920px,92vw);max-height:82vh;overflow:auto;background:rgba(18,20,40,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 55px rgba(0,0,0,.5);transform:scale(.96);opacity:0;transition:.18s ease}
@@ -64,22 +62,25 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 @media(max-width:720px){.v21-body{grid-template-columns:1fr}}
 .v21-img{width:100%;height:360px;background:#0b0f1a;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
 .v21-text{color:var(--muted);white-space:pre-wrap;line-height:1.7}
-.v21-hint{color:var(--muted);font-size:12px;margin-top:8px}
 
-/* === Mise en page spécifique Famille: 2 parents en haut, 3 enfants en bas === */
-.family-block{display:grid;gap:16px}
-.family-row{display:grid;gap:16px}
-.family-row.parents{grid-template-columns:repeat(2,1fr)}
-.family-row.children{grid-template-columns:repeat(3,1fr)}
-@media(max-width:900px){
-  .family-row.parents{grid-template-columns:1fr 1fr}
-  .family-row.children{grid-template-columns:1fr 1fr 1fr}
+/* === MISE EN PAGE FAMILLE ===
+   - même largeur de carte pour parents et enfants
+   - parents centrés sans trou, avec le même espace qu'entre les enfants
+*/
+.family{ --col-gap:16px; --cols:3; display:grid; gap:var(--col-gap); }
+.family-parents{ display:flex; justify-content:center; gap:var(--col-gap); }
+.family-parents .v21-card{
+  width: calc((100% - (var(--cols) - 1) * var(--col-gap)) / var(--cols)); /* = largeur d'UNE colonne enfant */
 }
-@media(max-width:820px){
-  .family-row.children{grid-template-columns:1fr 1fr}
+.family-children{ display:grid; grid-template-columns: repeat(var(--cols), 1fr); gap:var(--col-gap); }
+
+@media (max-width:820px){
+  /* Passe à 2 colonnes en tablette : parents prendront la largeur d'une colonne tablette */
+  .family{ --cols:2; }
 }
-@media(max-width:560px){
-  .family-row.parents,.family-row.children{grid-template-columns:1fr}
+@media (max-width:560px){
+  /* Une colonne en mobile : parents l'un sous l'autre, même largeur que les enfants */
+  .family{ --cols:1; }
 }
 </style>
 </head>
@@ -132,7 +133,7 @@ document.getElementById('hamb')?.addEventListener('click',()=>{
       <span class="pill">✦ Famille</span>
       <h2 class="glow">Famille Peterson</h2>
 
-      <!-- DIRECTEMENT la Description sous le gros titre -->
+      <!-- Description directement sous le titre -->
       <section>
         <div class="container gallery">
           <div class="card" style="padding:22px">
@@ -145,66 +146,56 @@ Rassemble ici le texte de présentation : origines, traits communs, éléments m
         </div>
       </section>
 
+      <!-- Membres de la famille -->
       <section id="famille-peterson">
         <div class="container">
           <h3 class="glow" style="margin-bottom:12px">Membres de la famille</h3>
 
-          <!-- Bloc à deux rangées : 2 parents en haut, 3 enfants en bas -->
-          <div class="family-block">
-
-            <!-- RANGÉE PARENTS -->
-            <div class="family-row parents">
-
-              <!-- Parent 1 -->
+          <div class="family">
+            <!-- PARENTS : centrés, même largeur qu'une colonne enfant, sans trou -->
+            <div class="family-parents">
               <article class="v21-card" data-name="Jade Peterson" data-img="Jade.png">
                 <img class="v21-thumb" src="images/personnages/Jade.png" alt="Jade Peterson">
                 <div class="v21-name">Jade Peterson</div>
                 <template>
-Écris ici la description détaillée du premier parent (caractère, rôle dans l'intrigue, liens avec les enfants, pouvoirs éventuels, etc.).
+Texte Jade…
                 </template>
               </article>
 
-              <!-- Parent 2 -->
-              <article class="v21-card" data-name="Parent 2 — Nom à compléter" data-img="Parent2.png">
+              <article class="v21-card" data-name="Parent 2" data-img="Parent2.png">
                 <img class="v21-thumb" src="images/personnages/Parent2.png" alt="Parent 2">
                 <div class="v21-name">Parent 2</div>
                 <template>
-Écris ici la description détaillée du deuxième parent.
+Texte Parent 2…
                 </template>
               </article>
-
             </div>
 
-            <!-- RANGÉE ENFANTS -->
-            <div class="family-row children">
-
-              <!-- Enfant 1 -->
+            <!-- ENFANTS : 3 colonnes -->
+            <div class="family-children">
               <article class="v21-card" data-name="Léo Peterson" data-img="Léo.png">
                 <img class="v21-thumb" src="images/personnages/Léo.png" alt="Léo Peterson">
                 <div class="v21-name">Léo Peterson</div>
                 <template>
-Léo est le plus calme de la fratrie… (reprends/ajuste ton texte officiel ici).
+Texte Léo…
                 </template>
               </article>
 
-              <!-- Enfant 2 -->
               <article class="v21-card" data-name="Carlos Peterson" data-img="Carlos.png">
                 <img class="v21-thumb" src="images/personnages/Carlos.png" alt="Carlos Peterson">
                 <div class="v21-name">Carlos Peterson</div>
                 <template>
-Décris Carlos (personnalité, arcs, moments clés, pouvoirs…).
+Texte Carlos…
                 </template>
               </article>
 
-              <!-- Enfant 3 -->
               <article class="v21-card" data-name="Éléa Peterson" data-img="Elea.png">
                 <img class="v21-thumb" src="images/personnages/Elea.png" alt="Éléa Peterson">
                 <div class="v21-name">Éléa Peterson</div>
                 <template>
-Décris Éléa (personnalité, arcs, moments clés, pouvoirs…).
+Texte Éléa…
                 </template>
               </article>
-
             </div>
           </div>
 
