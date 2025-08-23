@@ -43,14 +43,13 @@ nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .hero{padding:64px 0 28px}
 .hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
-section{padding:28px 0}
-h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
+section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 .gallery{display:grid;gap:22px}
 
-/* === Styles personnages (identiques aux clans) === */
+/* === Cartes personnages (identiques aux clans) === */
 .v21-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
 .v21-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.v21-thumb{display:block;width:100%;object-fit:cover;object-position:top} /* pas de height forcée -> même comportement que les clans */
+.v21-thumb{display:block;width:100%;object-fit:cover;object-position:top}
 .v21-name{padding:10px 12px;font:700 16px Cinzel, serif}
 .v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
 .v21-modal{width:min(920px,92vw);max-height:82vh;overflow:auto;background:rgba(18,20,40,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 55px rgba(0,0,0,.5);transform:scale(.96);opacity:0;transition:.18s ease}
@@ -63,24 +62,55 @@ h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 .v21-img{width:100%;height:360px;background:#0b0f1a;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
 .v21-text{color:var(--muted);white-space:pre-wrap;line-height:1.7}
 
-/* === MISE EN PAGE FAMILLE ===
-   - même largeur de carte pour parents et enfants
-   - parents centrés sans trou, avec le même espace qu'entre les enfants
-*/
-.family{ --col-gap:16px; --cols:3; display:grid; gap:var(--col-gap); }
-.family-parents{ display:flex; justify-content:center; gap:var(--col-gap); }
-.family-parents .v21-card{
-  width: calc((100% - (var(--cols) - 1) * var(--col-gap)) / var(--cols)); /* = largeur d'UNE colonne enfant */
-}
-.family-children{ display:grid; grid-template-columns: repeat(var(--cols), 1fr); gap:var(--col-gap); }
+/* === Famille : ne JAMAIS dépasser la taille des clans === */
+#famille-peterson .v21-thumb{height:360px;}
+@media (max-width:900px){#famille-peterson .v21-thumb{height:320px}}
+@media (max-width:640px){#famille-peterson .v21-thumb{height:300px}}
+@media (max-width:420px){#famille-peterson .v21-thumb{height:260px}}
 
+/* Mise en page famille :
+   - largeur MAX calée sur 3 colonnes de cartes "clan" (parents et enfants)
+   - parents centrés sans trou, même espace qu'entre enfants
+*/
+.family{
+  --col-gap:16px;
+  --card-w:260px;      /* largeur max par carte, comme les pages de clans */
+  --cols:3;
+  max-width: calc(var(--cols) * var(--card-w) + (var(--cols) - 1) * var(--col-gap));
+  margin: 0 auto;
+  display: grid;
+  gap: var(--col-gap);
+}
+.family-parents{
+  display:flex;
+  justify-content:center;
+  gap:var(--col-gap);
+}
+.family-parents .v21-card{
+  width: var(--card-w);
+  max-width: var(--card-w);
+}
+.family-children{
+  display:grid;
+  grid-template-columns: repeat(3, var(--card-w));
+  gap:var(--col-gap);
+  justify-content:center;
+}
+
+/* Responsive : on garde la même logique que les clans */
+@media (max-width:900px){
+  .family{ --card-w:240px; }
+  .family-children{ grid-template-columns: repeat(3, var(--card-w)); }
+  .family-parents .v21-card{ width: var(--card-w); }
+}
 @media (max-width:820px){
-  /* Passe à 2 colonnes en tablette : parents prendront la largeur d'une colonne tablette */
-  .family{ --cols:2; }
+  .family{ --cols:2; max-width: calc(2 * var(--card-w) + (2 - 1) * var(--col-gap)); }
+  .family-children{ grid-template-columns: repeat(2, var(--card-w)); }
 }
 @media (max-width:560px){
-  /* Une colonne en mobile : parents l'un sous l'autre, même largeur que les enfants */
-  .family{ --cols:1; }
+  .family{ --cols:1; max-width: var(--card-w); }
+  .family-children{ grid-template-columns: var(--card-w); }
+  .family-parents{ flex-direction:column; align-items:center; }
 }
 </style>
 </head>
@@ -157,17 +187,13 @@ Rassemble ici le texte de présentation : origines, traits communs, éléments m
               <article class="v21-card" data-name="Jade Peterson" data-img="Jade.png">
                 <img class="v21-thumb" src="images/personnages/Jade.png" alt="Jade Peterson">
                 <div class="v21-name">Jade Peterson</div>
-                <template>
-Texte Jade…
-                </template>
+                <template>Décris Jade…</template>
               </article>
 
               <article class="v21-card" data-name="Parent 2" data-img="Parent2.png">
                 <img class="v21-thumb" src="images/personnages/Parent2.png" alt="Parent 2">
                 <div class="v21-name">Parent 2</div>
-                <template>
-Texte Parent 2…
-                </template>
+                <template>Décris le second parent…</template>
               </article>
             </div>
 
@@ -176,25 +202,19 @@ Texte Parent 2…
               <article class="v21-card" data-name="Léo Peterson" data-img="Léo.png">
                 <img class="v21-thumb" src="images/personnages/Léo.png" alt="Léo Peterson">
                 <div class="v21-name">Léo Peterson</div>
-                <template>
-Texte Léo…
-                </template>
+                <template>Texte Léo…</template>
               </article>
 
               <article class="v21-card" data-name="Carlos Peterson" data-img="Carlos.png">
                 <img class="v21-thumb" src="images/personnages/Carlos.png" alt="Carlos Peterson">
                 <div class="v21-name">Carlos Peterson</div>
-                <template>
-Texte Carlos…
-                </template>
+                <template>Texte Carlos…</template>
               </article>
 
               <article class="v21-card" data-name="Éléa Peterson" data-img="Elea.png">
                 <img class="v21-thumb" src="images/personnages/Elea.png" alt="Éléa Peterson">
                 <div class="v21-name">Éléa Peterson</div>
-                <template>
-Texte Éléa…
-                </template>
+                <template>Texte Éléa…</template>
               </article>
             </div>
           </div>
