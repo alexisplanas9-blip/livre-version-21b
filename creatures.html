@@ -15,7 +15,7 @@ body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#1a1d40 0%,var
 header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);border-bottom:1px solid rgba(255,255,255,.06)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
 .brand{display:flex;align-items:center;gap:12px}
-.logo{display:none} /* <- pas de logo sur cette page */
+.logo{display:none} /* pas de logo sur cette page */
 .brand h1{font:800 20px/1 Cinzel,serif;letter-spacing:.05em;margin:0}
 nav{position:relative}nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
 nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
@@ -47,15 +47,21 @@ section{padding:28px 0}
 h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 .gallery{display:grid;gap:22px}
 
-/* === Grille & cartes (identiques aux pages de clan) === */
+/* Grille & cartes */
 .v21-person-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:1100px){.v21-person-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:820px){.v21-person-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.v21-person-grid{grid-template-columns:1fr}}
-.v21-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
+.v21-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
 .v21-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .v21-thumb{display:block;width:100%;object-fit:cover;object-position:top}
 .v21-name{padding:10px 12px;font:700 16px Cinzel, serif}
+
+/* Badges rareté */
+.v21-badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;font-family:Cinzel,serif;z-index:5}
+.v21-badge.commune{color:#9aa0c3;}
+.v21-badge.rare{color:#8ee6ff;}
+.v21-badge.mythique{color:#ff6ec7;}
 
 /* Modal */
 .v21-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter: blur(3px);display:none;align-items:center;justify-content:center;z-index:50}
@@ -76,7 +82,7 @@ h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 <header>
   <div class="container nav">
     <div class="brand">
-      <div class="logo"></div><!-- caché par CSS -->
+      <div class="logo"></div>
       <h1 class="glow">Les Triplés</h1>
     </div>
     <div class="hamb" id="hamb"><span></span></div>
@@ -102,17 +108,6 @@ h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
   </div>
 </header>
 
-<script>
-(function(){
-  const links=document.querySelectorAll('header nav a');
-  const here=location.pathname.split('/').pop()||'index.html';
-  links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active') });
-})();
-document.getElementById('hamb')?.addEventListener('click',()=>{
-  const ul=document.getElementById('menu'); ul.classList.toggle('open');
-});
-</script>
-
 <main>
   <section class="hero">
     <div class="container">
@@ -127,7 +122,9 @@ document.getElementById('hamb')?.addEventListener('click',()=>{
 Les créatures de l’Arbre et de Véralis
 
 Au sein de l’Arbre comme dans les terres de Véralis, on croise une grande diversité de créatures. Certaines sont le fruit de croisements, naturels ou provoqués par l’homme. Elles ont donné naissance à des espèces hybrides, originales, dotées de pouvoirs particuliers. Leurs capacités restent souvent limitées, mais leur variété en fait une richesse unique. C’est parmi elles que l’on retrouve, lors de la cérémonie des choix, une grande partie des compagnons proposés aux élèves du Clan du Lien animal.
+
 Viennent ensuite les créatures mythiques. Celles-ci ne sont pas nées du hasard : elles sont directement liées à un clan, comme Gogo, rattaché à l’Ombre. Peu dociles, elles acceptent rarement d’être liées à un élève du Clan du Lien animal, tant le lien est difficile à établir. Elles préfèrent rester dans leurs clans respectifs, parfois proches de certains élèves ou professeurs, mais toujours farouchement indépendantes. À Véralis, on en trouve aussi, errantes et libres : certaines bienveillantes, d’autres redoutables, certaines faibles, d’autres d’une puissance impressionnante.
+
 Enfin viennent les créatures légendaires. Elles sont anciennes, extrêmement rares, et presque impossibles à lier. Manipuler leur esprit relève de l’impossible tant leur puissance dépasse l’entendement. Certaines incarnent le mal pur, d’autres se tiennent simplement à l’écart, vivant à leur manière, hors de portée des hommes. Leur apparition est un événement, tant elles semblent appartenir à un autre temps.
             </p>
           </div>
@@ -139,96 +136,31 @@ Enfin viennent les créatures légendaires. Elles sont anciennes, extrêmement r
           <h3 class="glow" style="margin-bottom:12px">Fiches créatures</h3>
 
           <div class="v21-person-grid">
-            <!-- 15 fiches (tu remplaces noms + images + textes) -->
-            <article class="v21-card" data-name="Scargo-ombrus" data-img="creature-01.png">
-              <img class="v21-thumb" src="images/personnages/creature-01.png" alt="Scargo-ombrus">
-              <div class="v21-name">Scargo-ombrus</div>
-              <template>Escargot ailé cracheur de flammes. Nocturne, lié aux Ombres.</template>
-            </article>
-
-            <article class="v21-card" data-name="Chienchon" data-img="creature-02.png">
-              <img class="v21-thumb" src="images/personnages/creature-02.png" alt="Chienchon">
+            <!-- Exemple commune -->
+            <article class="v21-card" data-name="Chienchon" data-img="creature-01.png">
+              <div class="v21-badge commune">Commune</div>
+              <img class="v21-thumb" src="images/personnages/creature-01.png" alt="Chienchon">
               <div class="v21-name">Chienchon</div>
-              <template>Petit canidé volant à queue en tire-bouchon (coucou Zepec 👀).</template>
+              <template>Petit canidé volant à queue en tire-bouchon.</template>
             </article>
 
-            <article class="v21-card" data-name="Diax" data-img="creature-03.png">
-              <img class="v21-thumb" src="images/personnages/creature-03.png" alt="Diax">
-              <div class="v21-name">Diax</div>
-              <template>Démon traqueur, adore les lieux clos. Très dangereux seul.</template>
-            </article>
-
-            <article class="v21-card" data-name="Pomux" data-img="creature-04.png">
-              <img class="v21-thumb" src="images/personnages/creature-04.png" alt="Pomux">
+            <!-- Exemple rare -->
+            <article class="v21-card" data-name="Pomux" data-img="creature-02.png">
+              <div class="v21-badge rare">Rare</div>
+              <img class="v21-thumb" src="images/personnages/creature-02.png" alt="Pomux">
               <div class="v21-name">Pomux</div>
-              <template>Esprit-arbre complice, protecteur des entrées secrètes.</template>
+              <template>Esprit-arbre protecteur des passages secrets.</template>
             </article>
 
-            <article class="v21-card" data-name="Sylphe-lueur" data-img="creature-05.png">
-              <img class="v21-thumb" src="images/personnages/creature-05.png" alt="Sylphe-lueur">
-              <div class="v21-name">Sylphe-lueur</div>
-              <template>Petit esprit d’air phosphorescent, guide les voyageurs.</template>
+            <!-- Exemple mythique -->
+            <article class="v21-card" data-name="Scargo-ombrus" data-img="creature-03.png">
+              <div class="v21-badge mythique">Mythique</div>
+              <img class="v21-thumb" src="images/personnages/creature-03.png" alt="Scargo-ombrus">
+              <div class="v21-name">Scargo-ombrus</div>
+              <template>Escargot ailé cracheur de flammes, lié à l’Ombre.</template>
             </article>
 
-            <article class="v21-card" data-name="Rochéchine" data-img="creature-06.png">
-              <img class="v21-thumb" src="images/personnages/creature-06.png" alt="Rochéchine">
-              <div class="v21-name">Rochéchine</div>
-              <template>Bête minérale cuirassée, avance lentement mais surement.</template>
-            </article>
-
-            <article class="v21-card" data-name="Véralion" data-img="creature-07.png">
-              <img class="v21-thumb" src="images/personnages/creature-07.png" alt="Véralion">
-              <div class="v21-name">Véralion</div>
-              <template>Rapace de Véralis. Cri sonique, redoute l’Esprit.</template>
-            </article>
-
-            <article class="v21-card" data-name="Nébuleux" data-img="creature-08.png">
-              <img class="v21-thumb" src="images/personnages/creature-08.png" alt="Nébuleux">
-              <div class="v21-name">Nébuleux</div>
-              <template>Chat de brume, traverse les ombres en silence.</template>
-            </article>
-
-            <article class="v21-card" data-name="Garde-racine" data-img="creature-09.png">
-              <img class="v21-thumb" src="images/personnages/creature-09.png" alt="Garde-racine">
-              <div class="v21-name">Garde-racine</div>
-              <template>Colosse végétal, réveille l’Arbre en cas de menace.</template>
-            </article>
-
-            <article class="v21-card" data-name="Luzard" data-img="creature-10.png">
-              <img class="v21-thumb" src="images/personnages/creature-10.png" alt="Luzard">
-              <div class="v21-name">Luzard</div>
-              <template>Lézard-lumière, stocke l’éclat solaire sous ses écailles.</template>
-            </article>
-
-            <article class="v21-card" data-name="Murmureur" data-img="creature-11.png">
-              <img class="v21-thumb" src="images/personnages/creature-11.png" alt="Murmureur">
-              <div class="v21-name">Murmureur</div>
-              <template>Esprit auditif, répète les secrets qu’on voudrait taire.</template>
-            </article>
-
-            <article class="v21-card" data-name="Aigue-sprite" data-img="creature-12.png">
-              <img class="v21-thumb" src="images/personnages/creature-12.png" alt="Aigue-sprite">
-              <div class="v21-name">Aigue-sprite</div>
-              <template>Ondin minuscule, tresse des filigranes d’eau en combat.</template>
-            </article>
-
-            <article class="v21-card" data-name="Noctivague" data-img="creature-13.png">
-              <img class="v21-thumb" src="images/personnages/creature-13.png" alt="Noctivague">
-              <div class="v21-name">Noctivague</div>
-              <template>Raie volante des nuits sans lune. Hypnotique.</template>
-            </article>
-
-            <article class="v21-card" data-name="Cendrefoux" data-img="creature-14.png">
-              <img class="v21-thumb" src="images/personnages/creature-14.png" alt="Cendrefoux">
-              <div class="v21-name">Cendrefoux</div>
-              <template>Renard de braise : laisse des étincelles derrière lui.</template>
-            </article>
-
-            <article class="v21-card" data-name="Kelpryse" data-img="creature-15.png">
-              <img class="v21-thumb" src="images/personnages/creature-15.png" alt="Kelpryse">
-              <div class="v21-name">Kelpryse</div>
-              <template>Cheval d’algues, attire au large puis sauve… ou noie.</template>
-            </article>
+            <!-- ... ajoute les 12 autres en reprenant le modèle -->
           </div>
         </div>
 
@@ -246,7 +178,6 @@ Enfin viennent les créatures légendaires. Elles sont anciennes, extrêmement r
           </div>
         </div>
       </section>
-
     </div>
   </section>
 </main>
@@ -254,7 +185,6 @@ Enfin viennent les créatures légendaires. Elles sont anciennes, extrêmement r
 <footer>
   <div class="container">
     <div>© 2025 Les Triplés — Univers.</div>
-    <div style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</div>
   </div>
 </footer>
 
@@ -274,7 +204,6 @@ addEventListener('resize',resize);resize();draw();
   const title=document.getElementById('v21-title');
   const img=document.getElementById('v21-img');
   const text=document.getElementById('v21-text');
-
   function openCard(card){
     title.textContent = card.dataset.name || '';
     img.src = 'images/personnages/' + (card.dataset.img || '');
@@ -294,5 +223,3 @@ addEventListener('resize',resize);resize();draw();
 </script>
 </body>
 </html>
-
-
