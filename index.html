@@ -14,7 +14,8 @@
       --bg:#0a0b12;--bg2:#121426;--fg:#e7e3ff;--muted:#9aa0c3;
       --primary:#8ee6ff;--accent:#b987ff;--gold:#ffd48a;
       --panel:rgba(255,255,255,.04);--glass:rgba(255,255,255,.06);
-      --shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px
+      --shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px;
+      --headerH:56px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -30,11 +31,21 @@
     #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
 
     .container{width:min(1150px,92vw);margin:0 auto}
+    /* Pleine largeur sur mobile pour coller le burger au bord */
+    @media (max-width:860px){
+      .container{width:100%;padding:0 12px}
+    }
 
-    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);
+    header{
+      position:sticky;top:0;z-index:1000; /* header au-dessus du contenu */
+      backdrop-filter:blur(8px);
       background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);
-      border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      min-height:var(--headerH);gap:12px
+    }
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:34px;height:34px;border-radius:50%;
       background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);
@@ -43,44 +54,52 @@
 
     nav{position:relative}
     nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
-    nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block}
+    nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;display:block;text-align:left}
     nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
     nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
     .dropdown{position:relative}
     .dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
-    .submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);
-      border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}
+    .submenu{
+      position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);
+      border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)
+    }
     .submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
     .dropdown:hover .submenu{display:block}
 
-    .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
+    .hamb{
+      display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);color:var(--fg);
+      align-items:center;justify-content:center;cursor:pointer;user-select:none
+    }
     .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
     .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
     .hamb span:before{top:-6px}.hamb span:after{top:6px}
 
+    /* MOBILE */
     @media (max-width:860px){
       .hamb{display:flex}
 
+      /* Panneau menu plein écran sous le header */
       nav ul#menu{
         position:fixed;
-        left:0; right:0; top:0; bottom:0;
-        padding:72px 16px 16px;
+        left:0;right:0;
+        top:var(--headerH);
+        height:calc(100vh - var(--headerH));
+        padding:12px 16px 24px;
         flex-direction:column;
         align-items:stretch;
         gap:0;
         background:rgba(14,16,28,.98);
         border-top:1px solid rgba(255,255,255,.08);
         display:none;
-        z-index:9999;
+        z-index:1500;      /* au-dessus du header */
         overflow:auto;
       }
       nav ul#menu.open{display:flex}
 
       nav ul#menu > li > a{
         width:100%;
-        text-align:left;
-        padding:12px 0;
+        padding:14px 0;
         border-radius:0;
         background:none !important;
         color:var(--fg);
@@ -88,17 +107,15 @@
       }
       nav ul#menu > li + li > a{border-top:1px solid rgba(255,255,255,.06)}
 
+      /* Sous-menu : clic pour ouvrir/fermer */
       .dropdown > a::after{content:'▸';margin-left:6px;opacity:.7}
       .dropdown.open-sub > a::after{content:'▾'}
       .dropdown .submenu{
-        position:static;
-        display:none;
-        border:none;
-        background:transparent;
-        box-shadow:none;
-        padding-left:12px;
+        position:static;display:none;border:none;background:transparent;box-shadow:none;padding:6px 0 6px 12px
       }
       .dropdown.open-sub .submenu{display:block}
+      /* Désactive l’ouverture au survol en mobile */
+      .dropdown:hover .submenu{display:none}
     }
 
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
@@ -140,7 +157,7 @@
         <div class="logo"></div>
         <h1 class="glow">Les Triplés</h1>
       </div>
-      <div class="hamb" id="hamb"><span></span></div>
+      <div class="hamb" id="hamb" aria-label="Ouvrir le menu"><span></span></div>
       <nav>
         <ul id="menu">
           <li><a href="index.html">Accueil</a></li>
@@ -163,20 +180,44 @@
     </div>
   </header>
 
+  <!-- Active link + burger + sous-menu mobile -->
   <script>
-    // active link
     (function(){
+      // Lien actif
       const links=document.querySelectorAll('header nav a');
       const here=location.pathname.split('/').pop()||'index.html';
       links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
+
+      const hamb=document.getElementById('hamb');
+      const menu=document.getElementById('menu');
+
+      // Ouvre/ferme le panneau
+      hamb.addEventListener('click', ()=>{
+        menu.classList.toggle('open');
+        document.body.classList.toggle('nav-open', menu.classList.contains('open'));
+      });
+
+      // Sous-menu "Les Clans" en mobile : toggle au clic
+      function isMobile(){ return window.matchMedia('(max-width: 860px)').matches; }
+      const dd=document.querySelector('.dropdown > a');
+      dd.addEventListener('click', (e)=>{
+        if(isMobile()){
+          e.preventDefault();
+          dd.parentElement.classList.toggle('open-sub');
+        }
+      });
+
+      // Fermer le menu au clic sur un lien (mobile)
+      menu.querySelectorAll('a').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          if(isMobile()){
+            menu.classList.remove('open');
+            document.body.classList.remove('nav-open');
+            dd.parentElement.classList.remove('open-sub');
+          }
+        });
+      });
     })();
-    // menu burger
-    const hamb=document.getElementById('hamb');
-    const menu=document.getElementById('menu');
-    hamb.addEventListener('click', ()=>{
-      menu.classList.toggle('open');
-      document.body.classList.toggle('nav-open', menu.classList.contains('open'));
-    });
   </script>
 
   <main>
@@ -244,3 +285,4 @@
   </script>
 </body>
 </html>
+*
