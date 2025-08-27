@@ -58,16 +58,38 @@
     .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
     .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
     .hamb span:before{top:-6px}.hamb span:after{top:6px}
-    @media (max-width:860px){
-      .hamb{display:flex}
-      nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);
-        border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}
-      nav ul.open{display:flex}
-      .dropdown:hover .submenu{display:none}
-      .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
-      .submenu a{padding:8px 12px}
-      .dropdown>a:after{content:''}
+
+  @media (max-width:860px){
+    .hamb{display:flex}
+
+    nav ul#menu{
+      position:fixed;
+      inset:56px 0 0 0;   /* plein écran sous le header */
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+      padding:16px;
+      background:rgba(14,16,28,.98);
+      border-top:1px solid rgba(255,255,255,.08);
+      display:none;
+      z-index:55;
+      overflow:auto;
     }
+    nav ul#menu.open{display:flex}
+
+    /* sous-menu (mobile : clic au lieu de hover) */
+    .dropdown > a::after{content:'▸';margin-left:6px;opacity:.7}
+    .dropdown.open-sub > a::after{content:'▾'}
+    .dropdown .submenu{
+      position:static;
+      display:none;
+      border:none;
+      background:transparent;
+      box-shadow:none;
+      padding-left:12px;
+    }
+    .dropdown.open-sub .submenu{display:block}
+  }
 
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
     .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
@@ -122,26 +144,41 @@
               <a href="clan-nature.html">Clan de la Nature</a>
             </div>
           </li>
-  <li><a href="peterson.html"> Famille Peterson</a></li>
-  <li><a href="creatures.html">Les créatures</a></li>
-  <li><a href="arbre.html">L’Arbre</a></li>
-  <li><a href="auteur.html">L'Auteur</a></li>
+          <li><a href="peterson.html"> Famille Peterson</a></li>
+          <li><a href="creatures.html">Les créatures</a></li>
+          <li><a href="arbre.html">L’Arbre</a></li>
+          <li><a href="auteur.html">L'Auteur</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- ✅ NOUVEAU SCRIPT MENU -->
   <script>
     (function(){
+      // surligner la page active
       const links=document.querySelectorAll('header nav a');
       const here=location.pathname.split('/').pop()||'index.html';
       links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
+
+      // bouton hamburger
+      const hamb=document.getElementById('hamb');
+      const menu=document.getElementById('menu');
+      hamb.addEventListener('click',()=> menu.classList.toggle('open'));
+
+      // sous-menus en mobile (ouvrir/fermer au clic)
+      document.querySelectorAll('.dropdown > a').forEach(link=>{
+        link.addEventListener('click',(e)=>{
+          if(innerWidth<=860){
+            e.preventDefault();
+            link.parentElement.classList.toggle('open-sub');
+          }
+        });
+      });
     })();
-    document.getElementById('hamb')?.addEventListener('click',()=>document.getElementById('menu').classList.toggle('open'));
   </script>
 
   <main>
-
     <!-- HERO / Couverture -->
     <section class="hero">
       <div class="container">
@@ -150,7 +187,6 @@
 
         <div class="card" style="margin-top:14px">
           <h3 class="glow">Couverture — Tome 1</h3>
-          <!-- image fixe en CDN GitHub Pages -->
           <img
             src="/livre-version-21b/images/couverture.png?v=1"
             alt="Couverture — Les Triplés"
@@ -215,11 +251,21 @@
   </footer>
 
   <script>
-    // étoiles qui défilent (comme avant)
+    // étoiles qui défilent
     const cvs=document.getElementById('stars'),ctx=cvs.getContext('2d');
     let W,H,S=[];
-    function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
-    function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
+    function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;
+      S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},
+        ()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(const p of S){
+        ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5
+      }
+      requestAnimationFrame(draw)
+    }
     addEventListener('resize',resize);resize();draw();
   </script>
 </body>
