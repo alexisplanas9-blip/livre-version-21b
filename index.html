@@ -15,37 +15,25 @@
       --primary:#8ee6ff;--accent:#b987ff;--gold:#ffd48a;
       --panel:rgba(255,255,255,.04);--glass:rgba(255,255,255,.06);
       --shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px;
-      --headerH:56px;
+      --headerH:58px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background:radial-gradient(1200px 800px at 70% -10%,#1a1d40 0%,var(--bg) 60%),
-                 radial-gradient(800px 600px at 0% 100%,#0f132c 0%,var(--bg2) 60%);
+      background:#0a0b12;
       color:var(--fg);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      line-height:1.6;
+      line-height:1.6
     }
-    body.nav-open{overflow:hidden}
     #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
 
     .container{width:min(1150px,92vw);margin:0 auto}
-    /* Pleine largeur sur mobile pour coller le burger au bord */
-    @media (max-width:860px){
-      .container{width:100%;padding:0 12px}
-    }
 
-    header{
-      position:sticky;top:0;z-index:1000; /* header au-dessus du contenu */
-      backdrop-filter:blur(8px);
+    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);
       background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);
-      border-bottom:1px solid rgba(255,255,255,.06)
-    }
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;
-      min-height:var(--headerH);gap:12px
-    }
+      border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px;position:relative;}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:34px;height:34px;border-radius:50%;
       background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);
@@ -59,30 +47,25 @@
     nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
     .dropdown{position:relative}
     .dropdown>a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
-    .submenu{
-      position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);
-      border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)
-    }
+    .submenu{position:absolute;top:110%;left:0;min-width:230px;background:rgba(14,16,28,.96);
+      border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)}
     .submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
     .dropdown:hover .submenu{display:block}
 
-    .hamb{
-      display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);color:var(--fg);
-      align-items:center;justify-content:center;cursor:pointer;user-select:none
-    }
+    .hamb{display:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);color:var(--fg);align-items:center;justify-content:center;cursor:pointer}
     .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
     .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
     .hamb span:before{top:-6px}.hamb span:after{top:6px}
 
-    /* MOBILE */
+    /* === MOBILE header & menu === */
     @media (max-width:860px){
-      .hamb{display:flex}
+      .hamb{display:flex; position:absolute; right:10px; top:50%; transform:translateY(-50%); z-index:1600;}
+      .brand{padding-right:60px;} /* espace pour le burger */
 
-      /* Panneau menu plein écran sous le header */
       nav ul#menu{
         position:fixed;
-        left:0;right:0;
+        left:0; right:0;
         top:var(--headerH);
         height:calc(100vh - var(--headerH));
         padding:12px 16px 24px;
@@ -92,10 +75,10 @@
         background:rgba(14,16,28,.98);
         border-top:1px solid rgba(255,255,255,.08);
         display:none;
-        z-index:1500;      /* au-dessus du header */
+        z-index:1500;
         overflow:auto;
       }
-      nav ul#menu.open{display:flex}
+      nav ul#menu.open{display:flex;}
 
       nav ul#menu > li > a{
         width:100%;
@@ -104,18 +87,17 @@
         background:none !important;
         color:var(--fg);
         font-size:18px;
+        text-align:left;
       }
-      nav ul#menu > li + li > a{border-top:1px solid rgba(255,255,255,.06)}
+      nav ul#menu > li + li > a{border-top:1px solid rgba(255,255,255,.06);}
 
-      /* Sous-menu : clic pour ouvrir/fermer */
       .dropdown > a::after{content:'▸';margin-left:6px;opacity:.7}
       .dropdown.open-sub > a::after{content:'▾'}
       .dropdown .submenu{
-        position:static;display:none;border:none;background:transparent;box-shadow:none;padding:6px 0 6px 12px
+        position:static; display:none; border:none; background:transparent; box-shadow:none; padding:6px 0 6px 12px;
       }
-      .dropdown.open-sub .submenu{display:block}
-      /* Désactive l’ouverture au survol en mobile */
-      .dropdown:hover .submenu{display:none}
+      .dropdown.open-sub .submenu{display:block;}
+      .dropdown:hover .submenu{display:none;}
     }
 
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
@@ -157,7 +139,7 @@
         <div class="logo"></div>
         <h1 class="glow">Les Triplés</h1>
       </div>
-      <div class="hamb" id="hamb" aria-label="Ouvrir le menu"><span></span></div>
+      <div class="hamb" id="hamb"><span></span></div>
       <nav>
         <ul id="menu">
           <li><a href="index.html">Accueil</a></li>
@@ -180,48 +162,7 @@
     </div>
   </header>
 
-  <!-- Active link + burger + sous-menu mobile -->
-  <script>
-    (function(){
-      // Lien actif
-      const links=document.querySelectorAll('header nav a');
-      const here=location.pathname.split('/').pop()||'index.html';
-      links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
-
-      const hamb=document.getElementById('hamb');
-      const menu=document.getElementById('menu');
-
-      // Ouvre/ferme le panneau
-      hamb.addEventListener('click', ()=>{
-        menu.classList.toggle('open');
-        document.body.classList.toggle('nav-open', menu.classList.contains('open'));
-      });
-
-      // Sous-menu "Les Clans" en mobile : toggle au clic
-      function isMobile(){ return window.matchMedia('(max-width: 860px)').matches; }
-      const dd=document.querySelector('.dropdown > a');
-      dd.addEventListener('click', (e)=>{
-        if(isMobile()){
-          e.preventDefault();
-          dd.parentElement.classList.toggle('open-sub');
-        }
-      });
-
-      // Fermer le menu au clic sur un lien (mobile)
-      menu.querySelectorAll('a').forEach(a=>{
-        a.addEventListener('click', ()=>{
-          if(isMobile()){
-            menu.classList.remove('open');
-            document.body.classList.remove('nav-open');
-            dd.parentElement.classList.remove('open-sub');
-          }
-        });
-      });
-    })();
-  </script>
-
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <span class="pill">✦ Saga fantastique</span>
@@ -229,34 +170,55 @@
 
         <div class="card" style="margin-top:14px">
           <h3 class="glow">Couverture — Tome 1</h3>
-          <img src="/livre-version-21b/images/couverture.png?v=1"
-               alt="Couverture — Les Triplés"
-               style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;
-                      border-radius:14px;border:1px solid rgba(255,255,255,.08)">
+          <img
+            src="/livre-version-21b/images/couverture.png?v=1"
+            alt="Couverture — Les Triplés"
+            style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)"
+          >
         </div>
       </div>
     </section>
 
-    <!-- CLANS -->
     <section id="clans">
       <div class="container">
         <h3 class="glow" style="margin-bottom:12px">Les Clans</h3>
         <div class="clans">
+
           <article class="clan">
-            <a href="clan-ombre.html"><img src="/livre-version-21b/images/ombre.png?v=1" alt="Clan de l’Ombre"><div class="meta">Clan de l’Ombre</div></a>
+            <a href="clan-ombre.html">
+              <img src="/livre-version-21b/images/ombre.png?v=1" alt="Clan de l’Ombre">
+              <div class="meta">Clan de l’Ombre</div>
+            </a>
           </article>
+
           <article class="clan">
-            <a href="clan-metamorphose.html"><img src="/livre-version-21b/images/metamorphose.png?v=1" alt="Clan de la Métamorphose"><div class="meta">Clan de la Métamorphose</div></a>
+            <a href="clan-metamorphose.html">
+              <img src="/livre-version-21b/images/metamorphose.png?v=1" alt="Clan de la Métamorphose">
+              <div class="meta">Clan de la Métamorphose</div>
+            </a>
           </article>
+
           <article class="clan">
-            <a href="clan-lien-animal.html"><img src="/livre-version-21b/images/lien-animal.png?v=1" alt="Clan du Lien animal"><div class="meta">Clan du Lien animal</div></a>
+            <a href="clan-lien-animal.html">
+              <img src="/livre-version-21b/images/lien-animal.png?v=1" alt="Clan du Lien animal">
+              <div class="meta">Clan du Lien animal</div>
+            </a>
           </article>
+
           <article class="clan">
-            <a href="clan-esprit.html"><img src="/livre-version-21b/images/esprit.png?v=1" alt="Clan de l’Esprit"><div class="meta">Clan de l’Esprit</div></a>
+            <a href="clan-esprit.html">
+              <img src="/livre-version-21b/images/esprit.png?v=1" alt="Clan de l’Esprit">
+              <div class="meta">Clan de l’Esprit</div>
+            </a>
           </article>
+
           <article class="clan">
-            <a href="clan-nature.html"><img src="/livre-version-21b/images/nature.png?v=1" alt="Clan de la Nature"><div class="meta">Clan de la Nature</div></a>
+            <a href="clan-nature.html">
+              <img src="/livre-version-21b/images/nature.png?v=1" alt="Clan de la Nature">
+              <div class="meta">Clan de la Nature</div>
+            </a>
           </article>
+
         </div>
       </div>
     </section>
@@ -270,19 +232,48 @@
   </footer>
 
   <script>
-    // étoiles
-    const cvs=document.getElementById('stars'),ctx=cvs.getContext('2d');
-    let W,H,S=[];
-    function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;
-      S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},
-        ()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
-    function draw(){ctx.clearRect(0,0,W,H);
-      for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-        p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}
-      requestAnimationFrame(draw)}
-    addEventListener('resize',resize);resize();draw();
+  (function(){
+    // lien actif
+    const links=document.querySelectorAll('header nav a');
+    const here=location.pathname.split('/').pop()||'index.html';
+    links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
+
+    const hamb=document.getElementById('hamb');
+    const menu=document.getElementById('menu');
+
+    hamb.addEventListener('click',()=>{
+      menu.classList.toggle('open');
+      document.body.classList.toggle('nav-open', menu.classList.contains('open'));
+    });
+
+    const isMobile=()=>window.matchMedia('(max-width:860px)').matches;
+    document.querySelectorAll('.dropdown > a').forEach(link=>{
+      link.addEventListener('click',e=>{
+        if(isMobile()){
+          e.preventDefault();
+          link.parentElement.classList.toggle('open-sub');
+        }
+      });
+    });
+
+    menu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        if(isMobile()){
+          menu.classList.remove('open');
+          document.body.classList.remove('nav-open');
+          document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('open-sub'));
+        }
+      });
+    });
+  })();
+
+  // étoiles
+  const cvs=document.getElementById('stars'),ctx=cvs.getContext('2d');
+  let W,H,S=[];
+  function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}
+  function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}
+  addEventListener('resize',resize);resize();draw();
   </script>
 </body>
 </html>
-*
+
