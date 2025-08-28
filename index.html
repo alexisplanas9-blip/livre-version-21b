@@ -5,64 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Les Triplés — Accueil</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0a0b12;--bg2:#121426;--fg:#e7e3ff;--muted:#9aa0c3;
+      /* Dégradé simple 2 couleurs, très proche */
+      --bgStart:#0b0f1a;
+      --bgEnd:#14182a;
+
+      --fg:#e7e3ff;--muted:#b8bcdc;
       --primary:#8ee6ff;--accent:#b987ff;--gold:#ffd48a;
-      --panel:rgba(255,255,255,.04);--glass:rgba(255,255,255,.06);
-      --shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px
+      --panel:rgba(255,255,255,.04);--shadow:0 8px 30px rgba(0,0,0,.45);--radius:18px;
+      --drawer-bg:rgba(28,32,56,.92); /* un peu plus clair */
+      --drawer-border:rgba(255,255,255,.10);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background:
-        radial-gradient(1200px 800px at 70% -10%,#1a1d40 0%,var(--bg) 60%),
-        radial-gradient(800px 600px at 0% 100%,#0f132c 0%,var(--bg2) 60%);
+      background:linear-gradient(180deg,var(--bgStart),var(--bgEnd));
       color:var(--fg);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      line-height:1.6;
-      overflow-x:hidden;
+      line-height:1.6;overflow-x:hidden;
     }
-    /* lock scroll quand le drawer est ouvert */
     body.drawer-open{overflow:hidden}
-
     #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
-
     .container{width:min(1150px,92vw);margin:0 auto}
 
-    /* ====== Header & Nav ====== */
+    /* Header */
     header{
       position:sticky;top:0;z-index:20;
       backdrop-filter:blur(8px);
       background:linear-gradient(180deg,rgba(10,11,18,.85),rgba(10,11,18,.35) 90%,transparent);
-      border-bottom:1px solid rgba(255,255,255,.06)
+      border-bottom:1px solid rgba(255,255,255,.06);
     }
     .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:34px;height:34px;border-radius:50%;
+    .logo{width:34px;height:34px;border-radius:50%;
       background:radial-gradient(circle at 35% 35%,var(--primary),var(--accent) 60%,transparent 70%);
-      box-shadow:0 0 30px rgba(142,230,255,.4)
-    }
+      box-shadow:0 0 30px rgba(142,230,255,.4)}
     .brand h1{font:800 20px/1 Cinzel,serif;letter-spacing:.05em;margin:0}
 
-    nav{position:relative}
     nav ul{list-style:none;display:flex;gap:6px;align-items:center;padding:0;margin:0}
     nav li{display:block}
-    nav a{
-      color:var(--muted);text-decoration:none;display:block;
-      padding:10px 12px;border-radius:12px;text-align:left; /* ← force aligné à gauche */
-    }
+    nav a{color:var(--muted);text-decoration:none;display:block;padding:10px 12px;border-radius:12px;text-align:left}
     nav a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
     nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
-
-    /* Sous-menu desktop (hover) */
     .dropdown{position:relative}
     .dropdown > a:after{content:'▾';margin-left:6px;font-size:12px;opacity:.8}
     .submenu{
@@ -72,11 +62,9 @@
       border-radius:14px;padding:6px;display:none;box-shadow:var(--shadow)
     }
     .submenu a{padding:10px 12px;border-radius:10px;white-space:nowrap}
-    @media (min-width:861px){
-      .dropdown:hover .submenu{display:block}
-    }
+    @media (min-width:861px){ .dropdown:hover .submenu{display:block} }
 
-    /* Bouton hamburger */
+    /* Hamburger */
     .hamb{
       display:none;width:44px;height:44px;min-width:44px;
       border-radius:12px;border:1px solid rgba(255,255,255,.12);
@@ -84,86 +72,49 @@
       align-items:center;justify-content:center;cursor:pointer;margin-left:auto;
     }
     .hamb span{width:22px;height:2px;background:var(--fg);position:relative;display:block}
-    .hamb span:before,.hamb span:after{
-      content:'';position:absolute;left:0;width:22px;height:2px;background:var(--fg)
-    }
+    .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:22px;height:2px;background:var(--fg)}
     .hamb span:before{top:-6px}.hamb span:after{top:6px}
 
-    /* ====== Drawer mobile ====== */
+    /* Drawer mobile (pas de sous-menu) */
     @media (max-width:860px){
       .hamb{display:flex}
-
-      /* liste principale devient un tiroir latéral */
       nav ul#menu{
-        position:fixed;top:0;right:-280px; /* caché hors écran */
-        width:280px;height:100vh;
-        flex-direction:column;align-items:flex-start;
-        gap:6px;padding:16px;
-        background:rgba(14,16,28,.98);
-        border-left:1px solid rgba(255,255,255,.08);
-        display:flex;
-        transition:right .3s ease;
-        z-index:1001;
-        overflow:auto;
+        position:fixed;top:0;right:-280px;width:280px;height:100vh;
+        flex-direction:column;align-items:flex-start;gap:6px;padding:16px;
+        background:var(--drawer-bg);border-left:1px solid var(--drawer-border);
+        transition:right .3s ease;z-index:1001;overflow:auto;
       }
       nav ul#menu.open{right:0}
-
-      /* Sous menu mobile : toggle au clic */
-      .dropdown > a::after{content:'▸';margin-left:6px;opacity:.7}
-      .dropdown.open-sub > a::after{content:'▾'}
-      .dropdown .submenu{
-        position:static;display:none;border:none;background:transparent;
-        box-shadow:none;padding-left:12px;margin-top:2px;
-      }
-      .dropdown.open-sub .submenu{display:block}
+      /* Liens blancs en mobile */
+      nav ul#menu a{color:#fff}
+      nav ul#menu a:hover{background:rgba(255,255,255,.10)}
+      /* On masque le dropdown en mobile et on montre la liste à plat */
+      .desktop-only{display:none}
+      .mobile-only{display:block}
+    }
+    @media (min-width:861px){
+      .mobile-only{display:none}
     }
 
-    /* Backdrop pour fermer en dehors */
-    .backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,.45);
-      display:none;z-index:1000;
-    }
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:1000}
     .backdrop.show{display:block}
 
-    /* ====== Contenus ====== */
+    /* Contenu */
     .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
-    .card{
-      padding:18px;border-radius:var(--radius);
-      background:var(--panel);border:1px solid rgba(255,255,255,.06)
-    }
-
+    .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
     .hero{padding:64px 0 28px}
     .hero h2{font:800 38px/1.08 Cinzel,serif;margin:0 0 8px}
-    .pill{
-      display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);
-      background:rgba(255,212,138,.05)
-    }
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-size:13px;color:var(--gold);background:rgba(255,212,138,.05)}
     section{padding:28px 0}
     h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 
-    .gallery{display:grid;gap:22px}
-
     .clans{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-    .clan{
-      position:relative;overflow:hidden;border-radius:var(--radius);
-      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08)
-    }
+    .clan{position:relative;overflow:hidden;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08)}
     .clan a{display:block;color:inherit;text-decoration:none}
-    .clan img{
-      width:100%;height:360px;object-fit:contain;background:#0b0f1a;display:block;filter:saturate(1.05)
-    }
-    .clan .meta{
-      position:absolute;inset:auto 0 0 0;padding:12px 14px;
-      background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));
-      font:700 16px Cinzel,serif
-    }
+    .clan img{width:100%;height:360px;object-fit:contain;background:#0b0f1a;display:block;filter:saturate(1.05)}
+    .clan .meta{position:absolute;inset:auto 0 0 0;padding:12px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));font:700 16px Cinzel,serif}
 
-    footer .container{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)
-    }
+    footer .container{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid rgba(255,255,255,.06);color:#a7abc7}
 
     @media (max-width:1050px){.clans{grid-template-columns:1fr 1fr 1fr}}
     @media (max-width:900px){.hero h2{font-size:34px}.clan img{height:320px}}
@@ -181,14 +132,14 @@
         <h1 class="glow">Les Triplés</h1>
       </div>
 
-      <!-- Bouton hamburger bien à droite -->
       <button class="hamb" id="hamb" aria-label="Ouvrir le menu"><span></span></button>
 
       <nav>
         <ul id="menu">
           <li><a href="index.html">Accueil</a></li>
 
-          <li class="dropdown">
+          <!-- Desktop : dropdown -->
+          <li class="dropdown desktop-only">
             <a href="clan-ombre.html">Les Clans</a>
             <div class="submenu">
               <a href="clan-ombre.html">Clan de l’Ombre</a>
@@ -199,6 +150,13 @@
             </div>
           </li>
 
+          <!-- Mobile : chaque clan en lien simple -->
+          <li class="mobile-only"><a href="clan-ombre.html">Clan de l’Ombre</a></li>
+          <li class="mobile-only"><a href="clan-metamorphose.html">Clan de la Métamorphose</a></li>
+          <li class="mobile-only"><a href="clan-lien-animal.html">Clan du Lien animal</a></li>
+          <li class="mobile-only"><a href="clan-esprit.html">Clan de l’Esprit</a></li>
+          <li class="mobile-only"><a href="clan-nature.html">Clan de la Nature</a></li>
+
           <li><a href="peterson.html">Famille Peterson</a></li>
           <li><a href="creatures.html">Les créatures</a></li>
           <li><a href="arbre.html">L’Arbre</a></li>
@@ -208,12 +166,9 @@
     </div>
   </header>
 
-  <!-- Backdrop pour le drawer -->
   <div class="backdrop" id="backdrop" aria-hidden="true"></div>
 
   <main>
-
-    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <span class="pill">✦ Saga fantastique</span>
@@ -221,60 +176,24 @@
 
         <div class="card" style="margin-top:14px">
           <h3 class="glow">Couverture — Tome 1</h3>
-          <img
-            src="/livre-version-21b/images/couverture.png?v=1"
-            alt="Couverture — Les Triplés"
-            style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)"
-          >
+          <img src="/livre-version-21b/images/couverture.png?v=1" alt="Couverture — Les Triplés"
+               style="width:100%;height:420px;object-fit:contain;background:#0b0f1a;border-radius:14px;border:1px solid rgba(255,255,255,.08)">
         </div>
       </div>
     </section>
 
-    <!-- CLANS -->
     <section id="clans">
       <div class="container">
         <h3 class="glow" style="margin-bottom:12px">Les Clans</h3>
         <div class="clans">
-
-          <article class="clan">
-            <a href="clan-ombre.html">
-              <img src="/livre-version-21b/images/ombre.png?v=1" alt="Clan de l’Ombre">
-              <div class="meta">Clan de l’Ombre</div>
-            </a>
-          </article>
-
-          <article class="clan">
-            <a href="clan-metamorphose.html">
-              <img src="/livre-version-21b/images/metamorphose.png?v=1" alt="Clan de la Métamorphose">
-              <div class="meta">Clan de la Métamorphose</div>
-            </a>
-          </article>
-
-          <article class="clan">
-            <a href="clan-lien-animal.html">
-              <img src="/livre-version-21b/images/lien-animal.png?v=1" alt="Clan du Lien animal">
-              <div class="meta">Clan du Lien animal</div>
-            </a>
-          </article>
-
-          <article class="clan">
-            <a href="clan-esprit.html">
-              <img src="/livre-version-21b/images/esprit.png?v=1" alt="Clan de l’Esprit">
-              <div class="meta">Clan de l’Esprit</div>
-            </a>
-          </article>
-
-          <article class="clan">
-            <a href="clan-nature.html">
-              <img src="/livre-version-21b/images/nature.png?v=1" alt="Clan de la Nature">
-              <div class="meta">Clan de la Nature</div>
-            </a>
-          </article>
-
+          <article class="clan"><a href="clan-ombre.html"><img src="/livre-version-21b/images/ombre.png?v=1" alt="Clan de l’Ombre"><div class="meta">Clan de l’Ombre</div></a></article>
+          <article class="clan"><a href="clan-metamorphose.html"><img src="/livre-version-21b/images/metamorphose.png?v=1" alt="Clan de la Métamorphose"><div class="meta">Clan de la Métamorphose</div></a></article>
+          <article class="clan"><a href="clan-lien-animal.html"><img src="/livre-version-21b/images/lien-animal.png?v=1" alt="Clan du Lien animal"><div class="meta">Clan du Lien animal</div></a></article>
+          <article class="clan"><a href="clan-esprit.html"><img src="/livre-version-21b/images/esprit.png?v=1" alt="Clan de l’Esprit"><div class="meta">Clan de l’Esprit</div></a></article>
+          <article class="clan"><a href="clan-nature.html"><img src="/livre-version-21b/images/nature.png?v=1" alt="Clan de la Nature"><div class="meta">Clan de la Nature</div></a></article>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -285,50 +204,25 @@
   </footer>
 
   <script>
-    // Marquage du lien actif
+    // lien actif
     (function(){
       const links=document.querySelectorAll('header nav a');
       const here=location.pathname.split('/').pop()||'index.html';
       links.forEach(a=>{ if(a.getAttribute('href')===here) a.classList.add('active'); });
     })();
 
-    // Drawer mobile + sous-menus au clic
+    // drawer
     (function(){
-      const hamb = document.getElementById('hamb');
-      const menu = document.getElementById('menu');
-      const backdrop = document.getElementById('backdrop');
-
-      function openDrawer(){
-        menu.classList.add('open');
-        backdrop.classList.add('show');
-        document.body.classList.add('drawer-open');
-      }
-      function closeDrawer(){
-        menu.classList.remove('open');
-        backdrop.classList.remove('show');
-        document.body.classList.remove('drawer-open');
-      }
-
-      hamb.addEventListener('click', ()=> {
-        if(menu.classList.contains('open')) closeDrawer(); else openDrawer();
-      });
-      backdrop.addEventListener('click', closeDrawer);
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-
-      // Sous-menus seulement en mobile
-      document.querySelectorAll('.dropdown > a').forEach(a => {
-        a.addEventListener('click', e => {
-          if (window.matchMedia('(max-width:860px)').matches) {
-            e.preventDefault();
-            a.parentElement.classList.toggle('open-sub');
-          }
-        });
-      });
-
-      // Fermer le drawer quand on clique sur un lien (optionnel)
-      document.querySelectorAll('#menu a').forEach(a=>{
-        a.addEventListener('click', ()=> { if (window.matchMedia('(max-width:860px)').matches) closeDrawer(); });
-      });
+      const hamb=document.getElementById('hamb');
+      const menu=document.getElementById('menu');
+      const backdrop=document.getElementById('backdrop');
+      const open=()=>{menu.classList.add('open');backdrop.classList.add('show');document.body.classList.add('drawer-open')}
+      const close=()=>{menu.classList.remove('open');backdrop.classList.remove('show');document.body.classList.remove('drawer-open')}
+      hamb.addEventListener('click',()=>menu.classList.contains('open')?close():open());
+      backdrop.addEventListener('click',close);
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+      // fermer au clic sur un lien (mobile)
+      document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{ if (window.matchMedia('(max-width:860px)').matches) close(); }));
     })();
 
     // étoiles
@@ -336,22 +230,19 @@
       const cvs=document.getElementById('stars'),ctx=cvs.getContext('2d');
       let W,H,S=[];
       function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;
-        S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({
-          x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3
-        }))
+        S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))
       }
       function draw(){
         ctx.clearRect(0,0,W,H);
         for(const p of S){
           ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;
           ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-          p.y+=0.45+p.s*1.0; if(p.y>H)p.y=-5;
+          p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5;
         }
-        requestAnimationFrame(draw)
+        requestAnimationFrame(draw);
       }
       addEventListener('resize',resize);resize();draw();
     })();
   </script>
 </body>
 </html>
-
