@@ -26,14 +26,31 @@ nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
 .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
 .hamb span:before{top:-6px}.hamb span:after{top:6px}
+/* Mobile: cache le menu desktop, montre le hamburger */
 @media (max-width:860px){
+  nav ul{display:none}
   .hamb{display:flex}
-  nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}
-  nav ul.open{display:flex}
-  .dropdown:hover .submenu{display:none}
-  .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
-  .submenu a{padding:8px 12px}
-  .dropdown>a:after{content:''}
+}
+
+/* Drawer mobile (comme Ombre) */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  opacity:0;visibility:hidden;transition:.25s;z-index:1500;
+}
+.overlay.open{opacity:1;visibility:visible}
+
+.drawer{
+  position:fixed;top:0;right:-270px;height:100%;width:260px;
+  background:#14162a;border-left:1px solid rgba(255,255,255,.1);
+  box-shadow:-8px 0 20px rgba(0,0,0,.45);
+  padding:18px 16px 30px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:right .28s ease;z-index:1600;
+}
+.drawer.open{right:0}
+.drawer h2{margin:2px 0 8px 2px;font:800 18px/1 Cinzel,serif;color:#fff}
+.drawer a{color:#fff;text-decoration:none;padding:10px 12px;border-radius:12px;font-weight:600;display:block}
+.drawer a:hover{background:rgba(255,255,255,.1)
 }
 .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
 .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
@@ -82,21 +99,31 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
 <body><canvas id="stars"></canvas>
 <header>
   <div class="container nav">
-    <div class="brand"><div class="logo"></div><h1 class="glow">Les Triplés</h1></div>
-    <div class="hamb" id="hamb"><span></span></div>
-    <nav>
-      <ul id="menu">
-        <li><a href="index.html">Accueil</a></li>
-        <li class="dropdown">
-          <a href="clan-metamorphose.html">Les Clans</a>
-          <div class="submenu">
-            <a href="clan-ombre.html">Clan de l’Ombre</a>
-            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
-            <a href="clan-lien-animal.html">Clan du Lien animal</a>
-            <a href="clan-esprit.html">Clan de l’Esprit</a>
-            <a href="clan-nature.html">Clan de la Nature</a>
-          </div>
-        </li>
+  <div class="brand"><div class="logo"></div><h1 class="glow">Les Triplés</h1></div>
+
+  <nav>
+    <ul id="menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li class="dropdown">
+        <a href="clan-metamorphose.html">Les Clans</a>
+        <div class="submenu">
+          <a href="clan-ombre.html">Clan de l’Ombre</a>
+          <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+          <a href="clan-lien-animal.html">Clan du Lien animal</a>
+          <a href="clan-esprit.html">Clan de l’Esprit</a>
+          <a href="clan-nature.html">Clan de la Nature</a>
+        </div>
+      </li>
+      <li><a href="peterson.html">Famille Peterson</a></li>
+      <li><a href="creatures.html">Les créatures</a></li>
+      <li><a href="arbre.html">L’Arbre</a></li>
+      <li><a href="auteur.html">L'Auteur</a></li>
+    </ul>
+  </nav>
+
+  <div class="hamb" id="hamb"><span></span></div>
+</div>
+
   <li><a href="peterson.html"> Famille Peterson</a></li>
   <li><a href="creatures.html">Les créatures</a></li>
   <li><a href="arbre.html">L’Arbre</a></li>
