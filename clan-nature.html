@@ -48,31 +48,7 @@
 .v21-hint{color:var(--muted);font-size:12px;margin-top:8px}
 </style></head>
 <body><canvas id="stars"></canvas>
-<header>
-  <div class="container nav">
-    <div class="brand"><div class="logo"></div><h1 class="glow">Les Triplés</h1></div>
-    <div class="hamb" id="hamb"><span></span></div>
-    <nav>
-      <ul id="menu">
-        <li><a href="index.html">Accueil</a></li>
-        <li class="dropdown">
-          <a href="clan-nature.html">Les Clans</a>
-          <div class="submenu">
-            <a href="clan-ombre.html">Clan de l’Ombre</a>
-            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
-            <a href="clan-lien-animal.html">Clan du Lien animal</a>
-            <a href="clan-esprit.html">Clan de l’Esprit</a>
-            <a href="clan-nature.html">Clan de la Nature</a>
-          </div>
-        </li>
-  <li><a href="peterson.html"> Famille Peterson</a></li>
-  <li><a href="creatures.html">Les créatures</a></li>
-  <li><a href="arbre.html">L’Arbre</a></li>
-  <li><a href="auteur.html">L'Auteur</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+
 <script>(function(){const links=document.querySelectorAll('header nav a');const here=location.pathname.split('/').pop()||'index.html';links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});})();document.getElementById('hamb')?.addEventListener('click',()=>{document.getElementById('menu').classList.toggle('open')});</script>
 
 <main>
@@ -87,7 +63,52 @@
 Chez eux, le pouvoir ne se déclare pas dans le fracas : il se glisse dans un souffle de vent qui change de direction, dans une fleur qui redresse sa tige sous leurs doigts, dans la mousse qui s’épaissit sur une pierre pour protéger un oiseau tombé du nid. Mais qu’on ne s’y trompe pas : derrière leur calme, il y a la force sauvage de la tempête, la brutalité d’une racine qui fend la roche. S’ils doivent protéger, ils le feront sans hésiter, et la nature répondra à leur appel avec une loyauté farouche.
 Leur lien avec le vivant n’est pas une simple aptitude, c’est un langage secret. Ils savent lire la sécheresse dans l’air, deviner l’orage dans l’odeur de la terre, ou sentir la détresse d’un arbre malade à plusieurs pas. Le plus souvent, ils préfèrent soigner plutôt que détruire, guider plutôt qu’imposer. Mais si la menace persiste… alors la forêt se referme, les ronces s’érigent, et les racines sortent du sol comme des serpents pour encercler l’ennemi.</p></div>
 </div></section>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo"></div>
+      <h1 class="glow">Les Triplés</h1>
+    </div>
 
+    <nav>
+      <ul id="menu">
+        <li><a href="index.html">Accueil</a></li>
+        <li class="dropdown">
+          <a href="clan-nature.html">Les Clans</a>
+          <div class="submenu">
+            <a href="clan-ombre.html">Clan de l’Ombre</a>
+            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+            <a href="clan-lien-animal.html">Clan du Lien animal</a>
+            <a href="clan-esprit.html">Clan de l’Esprit</a>
+            <a href="clan-nature.html">Clan de la Nature</a>
+          </div>
+        </li>
+        <li><a href="peterson.html">Famille Peterson</a></li>
+        <li><a href="creatures.html">Les créatures</a></li>
+        <li><a href="arbre.html">L’Arbre</a></li>
+        <li><a href="auteur.html">L'Auteur</a></li>
+      </ul>
+    </nav>
+
+    <div class="hamb" id="hamb"><span></span></div>
+  </div>
+</header>
+
+<!-- Drawer mobile -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <h2>Menu</h2>
+  <a href="index.html">Accueil</a>
+  <a href="clan-ombre.html">Clan de l’Ombre</a>
+  <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+  <a href="clan-lien-animal.html">Clan du Lien animal</a>
+  <a href="clan-esprit.html">Clan de l’Esprit</a>
+  <a href="clan-nature.html">Clan de la Nature</a>
+  <a href="peterson.html">Famille Peterson</a>
+  <a href="creatures.html">Les créatures</a>
+  <a href="arbre.html">L’Arbre</a>
+  <a href="auteur.html">L'Auteur</a>
+</aside>
 <section id="personnages-nature-v21">
   <div class="container">
     <h3 class="glow" style="margin-bottom:12px">Personnages — Clan de la Nature</h3>
