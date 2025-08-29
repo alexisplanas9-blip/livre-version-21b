@@ -31,15 +31,15 @@
 body::before{
   content:"";
   position:fixed;
-  left:0; right:0; top:-100px;
+  left:0; right:30; top:-100px;
   height:320px;
   pointer-events:none;
   z-index:0; /* #stars est à z-index:1 => le halo passe dessous */
   background:
     radial-gradient(
       1000px 520px at 50% 0,
-      rgba(142,230,255,.20) 0%,
-      rgba(185,135,255,.14) 22%,
+      rgba(142,230,255,.40) 0%,
+      rgba(185,135,255,.18) 22%,
       rgba(10,11,18,0) 70%
     );
   filter: blur(2px);
