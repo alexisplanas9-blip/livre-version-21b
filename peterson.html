@@ -30,14 +30,30 @@ nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
 .hamb span:before{top:-6px}.hamb span:after{top:6px}
 @media (max-width:860px){
-  .hamb{display:flex}
-  nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}
-  nav ul.open{display:flex}
-  .dropdown:hover .submenu{display:none}
-  .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
-  .submenu a{padding:8px 12px}
-  .dropdown>a:after{content:''}
+  nav ul{display:none;}   /* on cache le menu en petit écran */
+  .hamb{display:flex;}    /* on affiche le hamburger */
 }
+
+/* Overlay + Drawer (mobile) */
+.overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  opacity:0; visibility:hidden; transition:.25s; z-index:1500;
+}
+.overlay.open{opacity:1; visibility:visible}
+
+.drawer{
+  position:fixed; top:0; right:-270px; height:100%; width:260px;
+  background:#14162a; border-left:1px solid rgba(255,255,255,.1);
+  box-shadow:-8px 0 20px rgba(0,0,0,.45);
+  padding:18px 16px 30px;
+  display:flex; flex-direction:column; gap:10px;
+  transition:right .28s ease; z-index:1600;
+}
+.drawer.open{right:0}
+.drawer h2{margin:2px 0 8px 2px; font:800 18px/1 Cinzel,serif; color:#fff}
+.drawer a{color:#fff; text-decoration:none; padding:10px 12px; border-radius:12px; font-weight:600; display:block}
+.drawer a:hover{background:rgba(255,255,255,.1)}
+
 .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
 .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
 .hero{padding:64px 0 28px}
@@ -116,14 +132,13 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
 </head>
 <body>
 <canvas id="stars"></canvas>
-
 <header>
   <div class="container nav">
     <div class="brand">
       <div class="logo"></div>
       <h1 class="glow">Les Triplés</h1>
     </div>
-    <div class="hamb" id="hamb"><span></span></div>
+
     <nav>
       <ul id="menu">
         <li><a href="index.html">Accueil</a></li>
@@ -143,9 +158,55 @@ section{padding:28px 0}h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
         <li><a href="auteur.html">L'Auteur</a></li>
       </ul>
     </nav>
+
+    <div class="hamb" id="hamb"><span></span></div>
   </div>
 </header>
 
+<!-- Drawer mobile -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <h2>Menu</h2>
+  <a href="index.html">Accueil</a>
+  <a href="clan-ombre.html">Clan de l’Ombre</a>
+  <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+  <a href="clan-lien-animal.html">Clan du Lien animal</a>
+  <a href="clan-esprit.html">Clan de l’Esprit</a>
+  <a href="clan-nature.html">Clan de la Nature</a>
+  <a href="peterson.html">Famille Peterson</a>
+  <a href="creatures.html">Les créatures</a>
+  <a href="arbre.html">L’Arbre</a>
+  <a href="auteur.html">L'Auteur</a>
+</aside>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // Lien actif (header + drawer)
+  const here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('header nav a, aside.drawer a').forEach(a=>{
+    if (a.getAttribute('href') === here) a.classList.add('active');
+  });
+
+  // Drawer mobile
+  const hamb = document.getElementById('hamb');
+  const overlay = document.getElementById('overlay');
+  const drawer = document.getElementById('drawer');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+  }
+
+  hamb?.addEventListener('click', openDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeDrawer(); });
+});
+</script>
 <script>
 (function(){
   const links=document.querySelectorAll('header nav a');
