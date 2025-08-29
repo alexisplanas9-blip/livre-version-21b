@@ -139,7 +139,24 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
   const here=location.pathname.split('/').pop()||'index.html';
   links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});
 })();
-document.getElementById('hamb')?.addEventListener('click',()=>{document.getElementById('menu').classList.toggle('open')});
+const hamb=document.getElementById('hamb');
+const overlay=document.getElementById('overlay');
+const drawer=document.getElementById('drawer');
+
+function openDrawer(){
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+  drawer.setAttribute('aria-hidden','false');
+}
+function closeDrawer(){
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  drawer.setAttribute('aria-hidden','true');
+}
+hamb.addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+
 </script>
 
 <main>
