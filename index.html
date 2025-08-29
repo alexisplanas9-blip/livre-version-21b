@@ -31,19 +31,19 @@
 body::before{
   content:"";
   position:fixed;
-  left:0; right:10; top:-100px;
+  top:-140px; left:0;
+  width:100vw;              /* pleine largeur fiable */
   height:320px;
   pointer-events:none;
-  z-index:0; /* #stars est à z-index:1 => le halo passe dessous */
+  z-index:0;
   background:
-    radial-gradient(
-      1000px 520px at 50% 0,
-      rgba(142,230,255,.40) 0%,
-      rgba(185,135,255,.18) 22%,
-      rgba(10,11,18,0) 70%
-    );
+    radial-gradient(1000px 520px at 50% 0,
+      rgba(142,230,255,.16) 0%,
+      rgba(185,135,255,.10) 22%,
+      rgba(10,11,18,0) 70%);
   filter: blur(2px);
 }
+
 
     /* --- Canvas étoiles --- */
     #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
