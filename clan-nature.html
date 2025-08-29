@@ -48,9 +48,6 @@
 .v21-hint{color:var(--muted);font-size:12px;margin-top:8px}
 </style></head>
 <body><canvas id="stars"></canvas>
-
-<script>(function(){const links=document.querySelectorAll('header nav a');const here=location.pathname.split('/').pop()||'index.html';links.forEach(a=>{if(a.getAttribute('href')===here)a.classList.add('active')});})();document.getElementById('hamb')?.addEventListener('click',()=>{document.getElementById('menu').classList.toggle('open')});</script>
-
 <main>
 <section class="hero"><div class="container">
 <span class="pill">✦ Clan</span><h2 class="glow">Clan de la Nature</h2>
@@ -109,6 +106,37 @@ Leur lien avec le vivant n’est pas une simple aptitude, c’est un langage sec
   <a href="arbre.html">L’Arbre</a>
   <a href="auteur.html">L'Auteur</a>
 </aside>
+  <script>
+document.addEventListener('DOMContentLoaded', function(){
+  // Lien actif (header + drawer)
+  const here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('header nav a, aside.drawer a').forEach(a=>{
+    if (a.getAttribute('href') === here) a.classList.add('active');
+  });
+
+  // Drawer mobile
+  const hamb = document.getElementById('hamb');
+  const overlay = document.getElementById('overlay');
+  const drawer = document.getElementById('drawer');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+  }
+
+  hamb?.addEventListener('click', openDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeDrawer(); });
+});
+</script>
+
+<main>
 <section id="personnages-nature-v21">
   <div class="container">
     <h3 class="glow" style="margin-bottom:12px">Personnages — Clan de la Nature</h3>
