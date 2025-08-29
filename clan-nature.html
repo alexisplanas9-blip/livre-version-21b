@@ -123,8 +123,6 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeDrawer(); });
 });
 </script>
-
-<main>
   <section class="hero"><div class="container">
     <span class="pill">✦ Clan</span><h2 class="glow">Clan de la Nature</h2>
     <section><div class="container gallery">
@@ -138,82 +136,6 @@ Leur lien avec le vivant n’est pas une simple aptitude, c’est un langage sec
       </div>
     </div></section>
   </div></section>
-
-<header>
-  <div class="container nav">
-    <div class="brand">
-      <div class="logo"></div>
-      <h1 class="glow">Les Triplés</h1>
-    </div>
-
-    <nav>
-      <ul id="menu">
-        <li><a href="index.html">Accueil</a></li>
-        <li class="dropdown">
-          <a href="clan-nature.html">Les Clans</a>
-          <div class="submenu">
-            <a href="clan-ombre.html">Clan de l’Ombre</a>
-            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
-            <a href="clan-lien-animal.html">Clan du Lien animal</a>
-            <a href="clan-esprit.html">Clan de l’Esprit</a>
-            <a href="clan-nature.html">Clan de la Nature</a>
-          </div>
-        </li>
-        <li><a href="peterson.html">Famille Peterson</a></li>
-        <li><a href="creatures.html">Les créatures</a></li>
-        <li><a href="arbre.html">L’Arbre</a></li>
-        <li><a href="auteur.html">L'Auteur</a></li>
-      </ul>
-    </nav>
-
-    <div class="hamb" id="hamb"><span></span></div>
-  </div>
-</header>
-
-<!-- Drawer mobile -->
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <h2>Menu</h2>
-  <a href="index.html">Accueil</a>
-  <a href="clan-ombre.html">Clan de l’Ombre</a>
-  <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
-  <a href="clan-lien-animal.html">Clan du Lien animal</a>
-  <a href="clan-esprit.html">Clan de l’Esprit</a>
-  <a href="clan-nature.html">Clan de la Nature</a>
-  <a href="peterson.html">Famille Peterson</a>
-  <a href="creatures.html">Les créatures</a>
-  <a href="arbre.html">L’Arbre</a>
-  <a href="auteur.html">L'Auteur</a>
-</aside>
-  <script>
-document.addEventListener('DOMContentLoaded', function(){
-  // Lien actif (header + drawer)
-  const here = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('header nav a, aside.drawer a').forEach(a=>{
-    if (a.getAttribute('href') === here) a.classList.add('active');
-  });
-
-  // Drawer mobile
-  const hamb = document.getElementById('hamb');
-  const overlay = document.getElementById('overlay');
-  const drawer = document.getElementById('drawer');
-
-  function openDrawer(){
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    drawer.setAttribute('aria-hidden','false');
-  }
-  function closeDrawer(){
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    drawer.setAttribute('aria-hidden','true');
-  }
-
-  hamb?.addEventListener('click', openDrawer);
-  overlay?.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeDrawer(); });
-});
-</script>
 
 <main>
 <section id="personnages-nature-v21">
