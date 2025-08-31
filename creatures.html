@@ -29,15 +29,33 @@ nav .active{color:var(--fg);background:rgba(255,255,255,.08)}
 .hamb span{width:20px;height:2px;background:var(--fg);position:relative;display:block}
 .hamb span:before,.hamb span:after{content:'';position:absolute;left:0;width:20px;height:2px;background:var(--fg)}
 .hamb span:before{top:-6px}.hamb span:after{top:6px}
+
+/* --- mobile: on masque le menu de nav, on affiche le hamburger --- */
 @media (max-width:860px){
-  .hamb{display:flex}
-  nav ul{position:absolute;right:0;top:58px;flex-direction:column;gap:4px;padding:10px;background:rgba(14,16,28,.98);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none}
-  nav ul.open{display:flex}
-  .dropdown:hover .submenu{display:none}
-  .submenu{position:static;border:none;background:transparent;box-shadow:none;display:block;padding:0}
-  .submenu a{padding:8px 12px}
-  .dropdown>a:after{content:''}
+  nav ul{display:none;}
+  .hamb{display:flex;}
 }
+
+/* Overlay + Drawer (mobile) */
+.overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  opacity:0; visibility:hidden; transition:.25s; z-index:1500;
+}
+.overlay.open{opacity:1; visibility:visible}
+
+.drawer{
+  position:fixed; top:0; right:-270px; height:100%; width:260px;
+  background:#14162a; border-left:1px solid rgba(255,255,255,.1);
+  box-shadow:-8px 0 20px rgba(0,0,0,.45);
+  padding:18px 16px 30px;
+  display:flex; flex-direction:column; gap:10px;
+  transition:right .28s ease; z-index:1600;
+}
+.drawer.open{right:0}
+.drawer h2{margin:2px 0 8px 2px; font:800 18px/1 Cinzel,serif; color:#fff}
+.drawer a{color:#fff; text-decoration:none; padding:10px 12px; border-radius:12px; font-weight:600; display:block}
+.drawer a:hover{background:rgba(255,255,255,.1)}
+
 .glow{text-shadow:0 0 20px rgba(142,230,255,.65),0 0 40px rgba(185,135,255,.3)}
 .card{padding:18px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(255,255,255,.06)}
 .hero{padding:64px 0 28px}
@@ -101,13 +119,59 @@ h3{font:700 26px/1.2 Cinzel,serif;margin:0 0 10px}
           </div>
         </li>
         <li><a href="peterson.html">Famille Peterson</a></li>
-        <li><a class="active" href="creatures.html">Les créatures</a></li>
+        <li><a href="creatures.html">Les créatures</a></li>
         <li><a href="arbre.html">L’Arbre</a></li>
         <li><a href="auteur.html">L'Auteur</a></li>
       </ul>
     </nav>
   </div>
 </header>
+
+<!-- Drawer mobile -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <h2>Menu</h2>
+  <a href="index.html">Accueil</a>
+  <a href="clan-ombre.html">Clan de l’Ombre</a>
+  <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+  <a href="clan-lien-animal.html">Clan du Lien animal</a>
+  <a href="clan-esprit.html">Clan de l’Esprit</a>
+  <a href="clan-nature.html">Clan de la Nature</a>
+  <a href="peterson.html">Famille Peterson</a>
+  <a href="creatures.html">Les créatures</a>
+  <a href="arbre.html">L’Arbre</a>
+  <a href="auteur.html">L'Auteur</a>
+</aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // Lien actif (header + drawer)
+  const here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('header nav a, aside.drawer a').forEach(a=>{
+    if (a.getAttribute('href') === here) a.classList.add('active');
+  });
+
+  // Drawer mobile
+  const hamb = document.getElementById('hamb');
+  const overlay = document.getElementById('overlay');
+  const drawer = document.getElementById('drawer');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+  }
+
+  hamb?.addEventListener('click', openDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeDrawer(); });
+});
+</script>
 
 <main>
   <section class="hero">
@@ -137,8 +201,7 @@ Enfin, il y a les créatures légendaires. Très anciennes, extrêmement rares, 
           <h3 class="glow" style="margin-bottom:12px">Fiches créatures</h3>
 
           <div class="v21-person-grid">
-            <!-- Exemple commune -->
-            <article class="v21-card" data-name="Aiglou" data-img="Aiglou.png">
+<article class="v21-card" data-name="Aiglou" data-img="Aiglou.png">
               <div class="v21-badge commune">Commune</div>
               <img class="v21-thumb" src="images/personnages/Aiglou.png" alt="Aiglou">
               <div class="v21-name">Aiglou</div>
@@ -417,9 +480,6 @@ Animal insaisissable, Selvanor ne répond jamais aux appels ordinaires. On racon
 Ses cornes emmagasinent la lumière lunaire, puis la libèrent en un éclair capable de réduire les ombres en cendres. Quand cette clarté frappe, aucune dissimulation ne résiste, et la frontière entre visible et invisible disparaît d’un seul trait. La brume qui l’accompagne brouille les repères. Croiser Selvanor, c’est voir son monde vaciller, que ce soit par la peur ou par la fascination.
   </template>
 </article>
-
-
-            <!-- ... ajoute les 12 autres en reprenant le modèle -->
           </div>
         </div>
 
