@@ -258,7 +258,7 @@ Moins téméraire que lui, elle compensait par une loyauté sans faille. Toujour
 </section>
 
 </main>
-<footer><div class="container"><div>© 2025 Les Triplés — Univers.</div><div style="font-size:12px">Les images chargées sont mémorisées localement sur cet appareil.</div></div></footer>
+<footer><div class="container"><div>© 2025 Les Triplés — Univers.</div><div style="font-size:12px"></div></div></footer>
 
 <script>const cvs=document.getElementById('stars');const ctx=cvs.getContext('2d');let W,H,S=[];function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;S=Array.from({length:Math.min(320,Math.floor(W*H/9000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,s:Math.random()*.7+.3}))}function draw(){ctx.clearRect(0,0,W,H);for(const p of S){ctx.fillStyle=`rgba(200,230,255,${0.3+p.s*0.6})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=0.45+p.s*1.0;if(p.y>H)p.y=-5}requestAnimationFrame(draw)}addEventListener('resize',resize);resize();draw();
 function fileToDataURL(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(file);});}
