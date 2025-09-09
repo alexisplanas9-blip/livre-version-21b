@@ -4,10 +4,142 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Les Triplés — L’Arbre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>L’Arbre</h1>
-  <p>Contenu à venir.</p>
+<canvas id="stars"></canvas>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo"></div>
+      <h1 class="glow">Les Triplés</h1>
+    </div>
+    <nav>
+      <ul id="menu">
+        <li><a href="index.html">Accueil</a></li>
+        <li class="dropdown">
+          <a href="clan-esprit.html">Les Clans</a>
+          <div class="submenu">
+            <a href="clan-ombre.html">Clan de l’Ombre</a>
+            <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+            <a href="clan-lien-animal.html">Clan du Lien animal</a>
+            <a href="clan-esprit.html">Clan de l’Esprit</a>
+            <a href="clan-nature.html">Clan de la Nature</a>
+          </div>
+        </li>
+        <li><a href="peterson.html">Famille Peterson</a></li>
+        <li><a href="creatures.html">Les créatures</a></li>
+        <li><a href="arbre.html" class="active">L’Arbre</a></li>
+        <li><a href="auteur.html">L'Auteur</a></li>
+      </ul>
+    </nav>
+    <div class="hamb" id="hamb"><span></span></div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <h2>Menu</h2>
+  <a href="index.html">Accueil</a>
+  <a href="clan-ombre.html">Clan de l’Ombre</a>
+  <a href="clan-metamorphose.html">Clan de la Métamorphose</a>
+  <a href="clan-lien-animal.html">Clan du Lien animal</a>
+  <a href="clan-esprit.html">Clan de l’Esprit</a>
+  <a href="clan-nature.html">Clan de la Nature</a>
+  <a href="peterson.html">Famille Peterson</a>
+  <a href="creatures.html">Les créatures</a>
+  <a href="arbre.html" class="active">L’Arbre</a>
+  <a href="auteur.html">L'Auteur</a>
+</aside>
+
+<main>
+  <!-- Hero + description -->
+  <section class="hero">
+    <div class="container">
+      <span class="pill">✦ Monde</span>
+      <h2 class="glow">L’Arbre</h2>
+      <div class="card" style="padding:22px; margin-top:18px;">
+        <h3 class="glow">Description</h3>
+        <p style="white-space:pre-wrap; margin-top:8px; color:var(--muted)">
+          L’Arbre est le cœur battant de l’univers des Triplés.
+          Ses racines plongent dans des terres anciennes et ses branches 
+          s’élancent jusqu’aux cieux, reliant les différents clans 
+          dans une structure vivante et mouvante.
+          
+          Chaque niveau de son tronc abrite un clan, 
+          chaque feuille porte la mémoire d’un être passé,
+          et chaque vent qui traverse son feuillage 
+          murmure une histoire oubliée.
+          
+          Monument à la fois naturel et mystique, 
+          l’Arbre veille sur l’équilibre du monde. 
+          Mais son immensité cache aussi des secrets, 
+          des passages dissimulés et des forces inconnues 
+          que seuls les plus téméraires osent approcher.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie style personnages -->
+  <section id="arbre-v21">
+    <div class="container">
+      <h3 class="glow" style="margin-bottom:12px">Galerie de l’Arbre</h3>
+      <div class="v21-person-grid">
+
+        <!-- Exemple 1 -->
+        <article class="v21-card" data-name="Les Racines" data-img="arbre1.jpg">
+          <img class="v21-thumb" src="images/arbre/arbre1.jpg" alt="Les Racines">
+          <div class="v21-name">Les Racines</div>
+          <template>
+            Profondes et anciennes, elles plongent dans la terre comme des veines vivantes.
+            Elles abritent des créatures mystérieuses et gardent les secrets du monde souterrain.
+          </template>
+        </article>
+
+        <!-- Exemple 2 -->
+        <article class="v21-card" data-name="Le Tronc" data-img="arbre2.jpg">
+          <img class="v21-thumb" src="images/arbre/arbre2.jpg" alt="Le Tronc">
+          <div class="v21-name">Le Tronc</div>
+          <template>
+            Imposant et solide, il relie les clans et porte les cicatrices des âges passés.
+          </template>
+        </article>
+
+        <!-- Ajoute 8 autres articles de la même manière -->
+        
+      </div>
+    </div>
+
+    <!-- Modale (réutilisable) -->
+    <div class="v21-mask" id="v21-mask">
+      <div class="v21-modal" id="v21-modal">
+        <div class="v21-head">
+          <div class="v21-title" id="v21-title">Titre</div>
+          <button class="v21-close" id="v21-close" aria-label="Fermer">✕</button>
+        </div>
+        <div class="v21-body">
+          <img class="v21-img" id="v21-img" alt="">
+          <div class="v21-text" id="v21-text"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div>© 2025 Les Triplés — Univers.</div>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
 </body>
 </html>
+
+
 
